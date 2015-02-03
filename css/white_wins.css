@@ -1,0 +1,73 @@
+/* Setting panels: full-size <section role="region"> blocks */
+section[role="region"] {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+border: 0;
+overflow: hidden;
+}
+
+/**
+* bug 976299 non-visible regions take an extra layer
+* in the layer tree. Remove them to improve scroll performance
+* in exchange for a reflow on section transitions.
+*
+* bug 976630 non-visible regions should have a visibility of hidden
+* for accessibility purposes. Removing the visibility transition
+* in hidden->visible avoids flashing.
+*/
+section[role="region"]:not(:target) {
+transform: translateX(+100%);
+visibility: hidden;
+}
+section[role="region"]:not(:target).previous {
+transform: translateX(-100%);
+visibility: hidden;
+}
+section[role="region"]:not(:target).current {
+transform: translateX(0);
+visibility: visible;
+}
+
+/**
+* Only use the animation when ready
+*/
+body[data-ready="true"] section[role="region"] {
+transition: transform .4s ease, visibility .4s;
+}
+body[data-ready="true"] section[role="region"].current {
+transition: transform .4s ease;
+}
+
+body[data-ready="true"] section[role="status"] {
+	transition: bottom .4s ease;
+}
+
+body {
+	font-family: sans-serif;
+  user-select: none;
+  -moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+body * {
+	user-select: none;
+  -moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+  cursor: default;
+}
+
+idden {
+	visibility: hidden;
+}
+section[role="status"].hidden {
+	bottom: -5em;
+  visibility: visible;
+}
+
+.pointer {
+	cursor: pointer;
+}

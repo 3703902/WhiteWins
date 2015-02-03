@@ -1,0 +1,32 @@
+CACHE MANIFEST
+# v0.0.0
+
+CACHE:
+index.html
+
+css/white_wins.css
+css/board.css
+
+css/resources/headers.css
+css/resources/layout.css
+css/resources/status.css
+
+css/resources/headers/images/back.png
+css/resources/headers/images/back@1.5x.png
+css/resources/headers/images/back@2.25x.png
+css/resources/headers/images/back@2x.png
+css/resources/headers/images/options.png
+css/resources/headers/images/options@1.5x.png
+css/resources/headers/images/options@2.25x.png
+css/resources/headers/images/options@2x.png
+css/resources/status/images/ui/pattern.png
+
+js/white_wins.js
+js/l10n.js
+js/main.js
+js/Page.js
+js/dollar/dollar.nc.js
+
+favicon.ico
+
+diagrams/diagrams.json
