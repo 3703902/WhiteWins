@@ -12,7 +12,21 @@ var WhiteWins = function(board, diagrams, status) {
 		'bb': '&#9821;',	// Black bishop
 		'bh': '&#9822;',	// Black horse
 		'br': '&#9820;',	// Black rook
-		'bp': '&#9823;'		// Black pawn
+		'bp': '&#9823;',	// Black pawn
+		
+		// Inverted
+		'♔':'wk',		// White king
+		'♕':'wq',		// White queen
+		'♗':'wb',		// White bishop
+		'♘':'wh',		// White horse
+		'♖':'wr',		// White rook
+		'♙':'wp',		// White pawn
+		'♚':'bk',		// Black king
+		'♛':'bq',		// Black queen
+		'♝':'bb',		// Black bishop
+		'♞':'bh',		// Black horse
+		'♜':'br',		// Black rook
+		'♟':'bp'		// Black pawn
 	};
 	
 	this._board = board;
@@ -20,6 +34,7 @@ var WhiteWins = function(board, diagrams, status) {
 	this._status = status;
 	
 	this._start = null;
+	this._piece = '';
 	
 	var self = this;
 	
@@ -32,6 +47,7 @@ var WhiteWins = function(board, diagrams, status) {
 					// I'm in the same cell as start
 					// Clear all
 					self._start = null;
+					self._piece = '';
 					
 					// Clear highlights
 					$.Each($.Dom.select('.cell.highlight'), function(cell){
@@ -44,16 +60,14 @@ var WhiteWins = function(board, diagrams, status) {
 					// Clear status bar
 					self.writeStatus('');
 				}
-				else {
-					// TODO: check if it's a right move
-					
+				else if(self.checkValidMove(self._piece.substring(1,2), self._start, end)){
 					$.Dom.addClass(cell, 'highlight');
 					$.Dom.addClass(cell, 'player');
 					$.Dom.addClass(cell, 'end');
 					
 					if (self.check(self._start, end)) {
 						// Right answer
-						self.writeStatus('Right answer');
+						self.writeStatus('Correct answer');
 					}
 					else {
 						// Wrong answer
@@ -83,6 +97,7 @@ var WhiteWins = function(board, diagrams, status) {
 						});
 					}
 					self._start = null;
+					self._piece = '';
 				}
 			}
 			else {
@@ -99,6 +114,7 @@ var WhiteWins = function(board, diagrams, status) {
 				
 				if(cell.innerHTML && !$.Dom.hasClass(cell, 'black')) {
 					self._start = cell.getAttribute('data-coord');
+					self._piece = self._translation[cell.innerHTML];
 					// Add highlights
 					$.Dom.addClass(cell, 'highlight');
 					$.Dom.addClass(cell, 'player');
@@ -109,15 +125,44 @@ var WhiteWins = function(board, diagrams, status) {
 	});
 };
 
+WhiteWins.prototype.checkValidMove = function(piece, start, end) {
+	var startX = parseInt(start.substring(0,1));
+	var startY = parseInt(start.substring(1,2));
+	var endX = parseInt(end.substring(0,1));
+	var endY = parseInt(end.substring(1,2));
+	
+	// if end cell has white piece => not a valid move
+	var endCell = $.Dom.select('.cell[data-coord="'+end+'"]')[0];
+	if(this._translation[endCell.innerHTML] && this._translation[endCell.innerHTML][0] == 'w') {
+		return false;
+	}
+	
+	// TODO: if a piece is in the middle => not a valid move
+	
+	switch (piece) {
+		case 'k':
+			return Math.abs(startX - endX) <= 1 && Math.abs(startY - endY) <= 1
+		case 'q':
+			return (startX == endX || startY == endY) || (endY - endX == startY - startX) || (endY + endX ==  + startY + startX);
+		case 'b':
+			return (endY - endX == startY - startX) || (endY + endX ==  + startY + startX);
+		case 'h':
+			return (Math.abs(startX - endX) == 1 && Math.abs(startY - endY) == 2) || (Math.abs(startX - endX) == 2 && Math.abs(startY - endY) == 1);
+		case 'r':
+			return startX == endX || startY == endY;
+		case 'p':
+			return (endY - startY == 1 && Math.abs(startX - endX) <= 1) || (startY == 1 && endY == 3 && startX == endX);
+		default:
+			return false;
+	}
+}
+
 WhiteWins.prototype.writeStatus = function(message) {
 	if (message) {
 		this._status.innerHTML = '<p>'+message+'</p>';
 		$.Dom.removeClass(this._status, 'hidden');
 	}
 	else {
-		setTimeout(function(){
-			this._status.innerHTML = '';
-		}, 400);
 		$.Dom.addClass(this._status, 'hidden');
 	}
 };
