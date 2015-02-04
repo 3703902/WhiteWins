@@ -38,7 +38,7 @@ $.Dom.addEvent(window, 'load', function(){
 	// Load the game
 	$.Dom.addEvent(window, 'diagrams-loaded', function(){
 		whiteWins = new WhiteWins($.Dom.id('board'), diagrams, $.Dom.id('status'));
-		whiteWins.clearBoard().loadDiagram(0).applyDiagram();
+		whiteWins.clearBoard().loadDiagram(diagrams.length -1).applyDiagram();
 		$.Dom.fireEvent(window, 'game-loaded');
 	});
 	
