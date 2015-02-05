@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html manifest="manifest.appcache">
 	<head>
 		<meta charset="utf-8"/>
 		<meta name=viewport content="width=device-width, initial-scale=1"/>
@@ -30,7 +30,8 @@
 					<button id="index-goto-rules" data-goto="rules" class="icon icon-options"></button>
 				</menu>
 				
-				<h1><span>White wins in 2 moves</span></h1>
+				<h1><span>White wins</span><span id="index-2moves-inline">&nbsp;in 2 moves</span></h1>
+				<h2 id="index-2moves-subtitle">in 2 moves</h2>
 			</header>
 			<section role="status" id="status" class="hidden">
 				<p id="status-p"></p>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<link rel="stylesheet" href="../css/board.css"/>
+		<link rel="stylesheet" href="wizard.css"/>
+		<script type="text/javascript" src="../js/dollar/dollar.nc.js" defer="defer"></script>
+		<script type="text/javascript" src="wizard.js" defer="defer"></script>
+	</head>
+	<body>
+		<ul id="options">
+			<li><label>Enable/disable suggestions: <input type="checkbox" id="options-suggestions"/></label></li>
+		</ul>
+		<div id="coords"></div>
+		<textarea id="output" readonly="readonly"></textarea><div class="suggestion">This is the output box</div>
+		<ul id="pieces">
+			<div class="suggestion">Drag/Drop pieces onto the board</div>
+			<li draggable="true">&#9812;</li>
+			<li draggable="true">&#9813;</li>
+			<li draggable="true">&#9814;</li>
+			<li draggable="true">&#9815;</li>
+			<li draggable="true">&#9816;</li>
+			<li draggable="true">&#9817;</li>
+			<li draggable="true">&#9818;</li>
+			<li draggable="true">&#9819;</li>
+			<li draggable="true">&#9820;</li>
+			<li draggable="true">&#9821;</li>
+			<li draggable="true">&#9822;</li>
+			<li draggable="true">&#9823;</li>
+		</ul>
+		<div id="solution">
+			<div class="suggestion">Click here to start setting the solution</div>
+			<input id="solution-start" value="xx" readonly="readonly"/> -
+			<input id="solution-end" value="xx" readonly="readonly"/>
+		</div>
+		<div id="board">
+			<div class="suggestion">Click on a piece to remove it</div>
+			<div class="row">
+				<div class="cell" data-coord="07"></div>
+				<div class="cell" data-coord="17"></div>
+				<div class="cell" data-coord="27"></div>
+				<div class="cell" data-coord="37"></div>
+				<div class="cell" data-coord="47"></div>
+				<div class="cell" data-coord="57"></div>
+				<div class="cell" data-coord="67"></div>
+				<div class="cell" data-coord="77"></div>
+			</div>
+			<div class="row">
+				<div class="cell" data-coord="06"></div>
+				<div class="cell" data-coord="16"></div>
+				<div class="cell" data-coord="26"></div>
+				<div class="cell" data-coord="36"></div>
+				<div class="cell" data-coord="46"></div>
+				<div class="cell" data-coord="56"></div>
+				<div class="cell" data-coord="66"></div>
+				<div class="cell" data-coord="76"></div>
+			</div>
+			<div class="row">
+				<div class="cell" data-coord="05"></div>
+				<div class="cell" data-coord="15"></div>
+				<div class="cell" data-coord="25"></div>
+				<div class="cell" data-coord="35"></div>
+				<div class="cell" data-coord="45"></div>
+				<div class="cell" data-coord="55"></div>
+				<div class="cell" data-coord="65"></div>
+				<div class="cell" data-coord="75"></div>
+			</div>
+			<div class="row">
+				<div class="cell" data-coord="04"></div>
+				<div class="cell" data-coord="14"></div>
+				<div class="cell" data-coord="24"></div>
+				<div class="cell" data-coord="34"></div>
+				<div class="cell" data-coord="44"></div>
+				<div class="cell" data-coord="54"></div>
+				<div class="cell" data-coord="64"></div>
+				<div class="cell" data-coord="74"></div>
+			</div>
+			<div class="row">
+				<div class="cell" data-coord="03"></div>
+				<div class="cell" data-coord="13"></div>
+				<div class="cell" data-coord="23"></div>
+				<div class="cell" data-coord="33"></div>
+				<div class="cell" data-coord="43"></div>
+				<div class="cell" data-coord="53"></div>
+				<div class="cell" data-coord="63"></div>
+				<div class="cell" data-coord="73"></div>
+			</div>
+			<div class="row">
+				<div class="cell" data-coord="02"></div>
+				<div class="cell" data-coord="12"></div>
+				<div class="cell" data-coord="22"></div>
+				<div class="cell" data-coord="32"></div>
+				<div class="cell" data-coord="42"></div>
+				<div class="cell" data-coord="52"></div>
+				<div class="cell" data-coord="62"></div>
+				<div class="cell" data-coord="72"></div>
+			</div>
+			<div class="row">
+				<div class="cell" data-coord="01"></div>
+				<div class="cell" data-coord="11"></div>
+				<div class="cell" data-coord="21"></div>
+				<div class="cell" data-coord="31"></div>
+				<div class="cell" data-coord="41"></div>
+				<div class="cell" data-coord="51"></div>
+				<div class="cell" data-coord="61"></div>
+				<div class="cell" data-coord="71"></div>
+			</div>
+			<div class="row">
+				<div class="cell" data-coord="00"></div>
+				<div class="cell" data-coord="10"></div>
+				<div class="cell" data-coord="20"></div>
+				<div class="cell" data-coord="30"></div>
+				<div class="cell" data-coord="40"></div>
+				<div class="cell" data-coord="50"></div>
+				<div class="cell" data-coord="60"></div>
+				<div class="cell" data-coord="70"></div>
+			</div>
+			<div class="col-coord">
+				<span>a</span>
+				<span>b</span>
+				<span>c</span>
+				<span>d</span>
+				<span>e</span>
+				<span>f</span>
+				<span>g</span>
+				<span>h</span>
+			</div>
+			<div class="col-coord">
+				<span>a</span>
+				<span>b</span>
+				<span>c</span>
+				<span>d</span>
+				<span>e</span>
+				<span>f</span>
+				<span>g</span>
+				<span>h</span>
+			</div>
+			<div class="row-coord">
+				<span>8</span>
+				<span>7</span>
+				<span>6</span>
+				<span>5</span>
+				<span>4</span>
+				<span>3</span>
+				<span>2</span>
+				<span>1</span>
+			</div>
+			<div class="row-coord">
+				<span>8</span>
+				<span>7</span>
+				<span>6</span>
+				<span>5</span>
+				<span>4</span>
+				<span>3</span>
+				<span>2</span>
+				<span>1</span>
+			</div>
+		</div>
+	</body>
+</html>
