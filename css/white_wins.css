@@ -71,3 +71,22 @@ section[role="status"].hidden {
 .pointer {
 	cursor: pointer;
 }
+
+#index-2moves-inline,
+#index-2moves-subtitle {
+	transition: all 0.4s ease;
+}
+@media (min-width: 600px) {
+	#index-2moves-subtitle{
+    font-size: 0;
+    padding: 0;
+    line-height: 0;
+    border: none;
+    background-color: white;
+  }
+}
+@media (max-width: 600px) {
+	#index-2moves-inline{
+		font-size: 0;
+	}
+}
