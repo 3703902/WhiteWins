@@ -9,11 +9,13 @@
 		<meta name="description" content=""/>
 		<meta name="keywords" content=""/>
 		
+		<link rel="stylesheet" href="css/resources/drawer.css"/>
 		<link rel="stylesheet" href="css/resources/headers.css"/>
 		<link rel="stylesheet" href="css/resources/layout.css"/>
 		<link rel="stylesheet" href="css/resources/status.css"/>
 		<link rel="stylesheet" href="css/white_wins.css"/>
 		<link rel="stylesheet" href="css/board.css"/>
+		<link rel="stylesheet" href="css/controllers.css"/>
 		
 		<script type="text/javascript" src="js/dollar/dollar.nc.js" defer="defer"></script>
 		<script type="text/javascript" src="js/l10n.js" defer="defer"></script>
@@ -24,8 +26,20 @@
 		<link rel="shortcut icon" href="favicon.ico"/>
 	</head>
 	<body role="application">
+		<section data-type="sidebar" class="vbox scroll">
+			<header>
+				<h1>Choose a diagram</h1>
+			</header>
+			<nav class="gaia-list scroll">
+				<ul id="index-sidebar-diagramslist"></ul>
+			</nav>
+		</section>
+		
 		<section role="region" id="index" class="current">
 			<header>
+				<a href="#"><span class="icon icon-menu">hide sidebar</span></a>
+				<a href="#index"><span class="icon icon-menu">show sidebar</span></a>
+				
 				<menu type="toolbar">
 					<button id="index-goto-rules" data-goto="rules" class="icon icon-options"></button>
 				</menu>
@@ -34,7 +48,8 @@
 				<h2 id="index-2moves-subtitle">in 2 moves</h2>
 			</header>
 			<section role="status" id="status" class="hidden">
-				<p id="status-p"></p>
+				<p></p>
+				<p id="index-nextdiagram" class="hidden">next</p>
 			</section>
 			<section class="fit scroll">
 				<div id="board">

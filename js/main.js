@@ -1,5 +1,9 @@
 var development = false;
 
+// TODO: load last open diagram
+// TODO: Save key of solved diagrams
+// TODO: display in light grey solved diagrams
+
 $.Dom.addEvent(window, 'load', function(){
 	
 	// Set browser language
@@ -38,8 +42,27 @@ $.Dom.addEvent(window, 'load', function(){
 	// Load the game
 	$.Dom.addEvent(window, 'diagrams-loaded', function(){
 		whiteWins = new WhiteWins($.Dom.id('board'), diagrams, $.Dom.id('status'));
-		whiteWins.clearBoard().loadDiagram(diagrams.length -1).applyDiagram();
+		// whiteWins.clearBoard().loadDiagram(diagrams.length -1).applyDiagram();
+		whiteWins.clearBoard();
+		
+		whiteWins.each(function(diagram, key){
+			$.Dom.inject($.Dom.element('li', {
+					'data-key': key
+				}, 'diagram '+key, {
+				'click': function(event){
+					whiteWins.clearBoard().loadDiagram(event.target.getAttribute('data-key')).applyDiagram();
+					location.href = '#';
+				}
+			}), 'index-sidebar-diagramslist');
+		});
+		
 		$.Dom.fireEvent(window, 'game-loaded');
+	});
+	
+	$.Dom.addEvent('index-nextdiagram', 'click', function(){
+		// TODO: search the next unsolved diagram
+		whiteWins.writeStatus('', false);
+		whiteWins.clearBoard().loadDiagram(whiteWins.next()).applyDiagram();
 	});
 	
 	// Set diagrams number

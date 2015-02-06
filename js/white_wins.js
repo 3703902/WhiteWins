@@ -58,7 +58,7 @@ var WhiteWins = function(board, diagrams, status) {
 						$.Dom.removeClass(cell, 'end');
 					});
 					// Clear status bar
-					self.writeStatus('');
+					self.writeStatus('', false);
 				}
 				else if(self.checkValidMove(self._piece.substring(1,2), self._start, end)){
 					$.Dom.addClass(cell, 'highlight');
@@ -67,11 +67,11 @@ var WhiteWins = function(board, diagrams, status) {
 					
 					if (self.check(self._start, end)) {
 						// Right answer
-						self.writeStatus('Correct answer');
+						self.writeStatus('Correct answer', true);
 					}
 					else {
 						// Wrong answer
-						self.writeStatus('Wrong answer');
+						self.writeStatus('Wrong answer', false);
 						
 						// If possible suggest a move for the black
 						$.Each(self._diagram.suggestions, function(byMove, move){
@@ -110,7 +110,7 @@ var WhiteWins = function(board, diagrams, status) {
 					$.Dom.removeClass(cell, 'end');
 				});
 				// Clear status bar
-				self.writeStatus('');
+				self.writeStatus('', false);
 				
 				if(cell.innerHTML && !$.Dom.hasClass(cell, 'black')) {
 					self._start = cell.getAttribute('data-coord');
@@ -157,9 +157,16 @@ WhiteWins.prototype.checkValidMove = function(piece, start, end) {
 	}
 }
 
-WhiteWins.prototype.writeStatus = function(message) {
+WhiteWins.prototype.writeStatus = function(message, next) {
+	var p = $.Dom.children(this._status, 'p')[0]
 	if (message) {
-		this._status.innerHTML = '<p>'+message+'</p>';
+		p.innerHTML = ''+message+'';
+		if (next) {
+			$.Dom.removeClass('index-nextdiagram', 'hidden');
+		}
+		else {
+			$.Dom.addClass('index-nextdiagram', 'hidden');
+		}
 		$.Dom.removeClass(this._status, 'hidden');
 	}
 	else {
@@ -167,7 +174,16 @@ WhiteWins.prototype.writeStatus = function(message) {
 	}
 };
 
+WhiteWins.prototype.next = function() {
+	var index = this._diagramIndex +1;
+	if (index >= this._diagrams.length) {
+		index = 0;
+	}
+	return index;
+};
+
 WhiteWins.prototype.loadDiagram = function(index) {
+	index = parseInt(index);
 	this._diagramIndex = index;
 	this._diagram = this._diagrams[index];
 	return this;
@@ -176,6 +192,11 @@ WhiteWins.prototype.loadDiagram = function(index) {
 WhiteWins.prototype.clearBoard = function() {
 	$.Each($.Dom.children(this._board, 'div', 'cell'), function(cell){
 		cell.innerHTML = '';
+		$.Dom.removeClass(cell, 'highlight');
+		$.Dom.removeClass(cell, 'player');
+		$.Dom.removeClass(cell, 'opponent');
+		$.Dom.removeClass(cell, 'start');
+		$.Dom.removeClass(cell, 'end');
 	});
 	return this;
 };
@@ -197,4 +218,8 @@ WhiteWins.prototype.applyDiagram = function () {
 
 WhiteWins.prototype.check = function(start, end) {
 	return start == this._diagram.solution.start && end == this._diagram.solution.end;
-}
+};
+
+WhiteWins.prototype.each = function(callback) {
+	$.Each(this._diagrams, callback);
+};
