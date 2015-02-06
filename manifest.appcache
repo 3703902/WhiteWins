@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# v0.0.6
+# v0.0.7
 
 CACHE:
 index.html
@@ -15,6 +15,10 @@ css/resources/headers/images/back.png
 css/resources/headers/images/back@1.5x.png
 css/resources/headers/images/back@2.25x.png
 css/resources/headers/images/back@2x.png
+css/resources/headers/images/menu.png
+css/resources/headers/images/menu@1.5x.png
+css/resources/headers/images/menu@2.25x.png
+css/resources/headers/images/menu@2x.png
 css/resources/headers/images/options.png
 css/resources/headers/images/options@1.5x.png
 css/resources/headers/images/options@2.25x.png
