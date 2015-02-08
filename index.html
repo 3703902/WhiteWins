@@ -13,6 +13,7 @@
 		<link rel="stylesheet" href="css/resources/headers.css"/>
 		<link rel="stylesheet" href="css/resources/layout.css"/>
 		<link rel="stylesheet" href="css/resources/status.css"/>
+		<link rel="stylesheet" href="css/resources/switches.css"/>
 		<link rel="stylesheet" href="css/white_wins.css"/>
 		<link rel="stylesheet" href="css/board.css"/>
 		<link rel="stylesheet" href="css/controllers.css"/>
@@ -31,17 +32,26 @@
 				<h1>Choose a diagram</h1>
 			</header>
 			<nav class="gaia-list scroll">
+				<ul>
+					<li>
+						<label class="pack-switch">
+							Show solved
+							<input type="checkbox" id="index-sidebar-showsolved"/>
+							<span></span>
+						</label>
+					</li>
+				</ul>
 				<ul id="index-sidebar-diagramslist"></ul>
 			</nav>
 		</section>
 		
 		<section role="region" id="index" class="current">
 			<header>
-				<a href="#"><span class="icon icon-menu">hide sidebar</span></a>
-				<a href="#index"><span class="icon icon-menu">show sidebar</span></a>
+				<a href="#" class="pointer"><span class="icon icon-menu pointer">hide sidebar</span></a>
+				<a href="#index" class="pointer"><span class="icon icon-menu pointer">show sidebar</span></a>
 				
 				<menu type="toolbar">
-					<button id="index-goto-rules" data-goto="rules" class="icon icon-options"></button>
+					<button id="index-goto-rules" data-goto="rules" class="pointer icon icon-options"></button>
 				</menu>
 				
 				<h1><span>White wins</span><span id="index-2moves-inline">&nbsp;in 2 moves</span></h1>
@@ -184,18 +194,63 @@
 				<h1>Rules and info</h1>
 			</header>
 			
-			<section class="fit scroll">
+			<section class="fit scroll gaia-list sticky">
 				<article>
 					<header>How to play</header>
+					
+					<p>The following is a list of pieces:</p>
+					<table id="pieces-table">
+						<!--<thead>
+							<tr>
+								<th>Name</th>
+								<th>White</th>
+								<th>Black</th>
+							</tr>
+						</thead>-->
+						<tbody>
+							<tr>
+								<td>King</td>
+								<td>♔</td>
+								<td>♚</td>
+							</tr>
+							<tr>
+								<td>Queen</td>
+								<td>♕</td>
+								<td>♛</td>
+							</tr>
+							<tr>
+								<td>Bishop</td>
+								<td>♗</td>
+								<td>♝</td>
+							</tr>
+							<tr>
+								<td>Horse</td>
+								<td>♘</td>
+								<td>♞</td>
+							</tr>
+							<tr>
+								<td>Rook</td>
+								<td>♖</td>
+								<td>♜</td>
+							</tr>
+							<tr>
+								<td>Pawn</td>
+								<td>♙</td>
+								<td>♟</td>
+							</tr>
+						</tbody>
+					</table>
+					
 					<p>There are <span id="rules-diagramsnumber">0</span> diagrams.</p>
 				</article>
 				<article>
 					<header>Bugs and issues</header>
-					
+					<p>Please, tell us if you find a bug: <a href="https://github.com/mastro-elfo/WhiteWins/issues" title="Bug and issues">Github bug and issues</a>.</p>
 				</article>
 				<article>
 					<header>Contribute</header>
-					
+					<p>As soon as possible, a simple page to create diagrams will be available. If you wish to contribute by suggesting new diagrams it will be appreciated.</p>
+					<p>An alpha version of the wizard is available here: <a href="http://mastro-elfo.github.io/WhiteWins/wizard/" title="Wizard">Wizard</a></p>
 				</article>
 			</section>
 		</section>
