@@ -49,7 +49,7 @@ $.Dom.addEvent(window, 'load', function(){
 		whiteWins.each(function(diagram, key){
 			$.Dom.inject($.Dom.element('li', {
 					'data-key': key,
-					'class': ''+(whiteWins._solved[key]?'solved':'')
+					'class': 'pointer '+(whiteWins._solved[key]?'solved':'')
 				}, 'diagram '+key, {
 				'click': function(event){
 					whiteWins.clearBoard().loadDiagram(event.target.getAttribute('data-key')).applyDiagram();
@@ -74,6 +74,10 @@ $.Dom.addEvent(window, 'load', function(){
 	// Set diagrams number
 	$.Dom.addEvent(window, 'diagrams-loaded', function(){
 		$.Dom.id('rules-diagramsnumber').innerHTML = whiteWins._diagrams.length;
+	});
+	
+	$.Dom.addEvent('index-sidebar-showsolved', 'change', function(event){
+		$.Dom.id('index-sidebar-diagramslist').setAttribute('data-showsolved', event.target.checked);
 	});
 	
 	// Set ready attribute

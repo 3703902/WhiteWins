@@ -20,9 +20,10 @@
   float: left;
   line-height: 1em;
   text-align: center;
-  transition: box-shadow 0.4s ease;
+  transition: box-shadow 0.25s ease;
   position: relative;
 }
+
 #board .row .cell:after {
   content: "";
   display: block;
@@ -113,6 +114,8 @@
     font-size: 2.5rem;
   }
 }
+
+
 
 
 

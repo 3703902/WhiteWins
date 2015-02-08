@@ -94,4 +94,32 @@ section[role="status"].hidden {
 
 section[data-type="sidebar"] > nav > ul > li.solved {
 	color: rgba(255, 255, 255, 0.5);
+  transition: all ease 0.25s;
 }
+
+section[data-type="sidebar"] > nav > ul:not([data-showsolved="true"]) > li.solved {
+  font-size: 0;
+  padding: 0;
+  height: 0;
+  min-height: 0;
+}
+section[data-type="sidebar"] > nav > ul:not([data-showsolved="true"]) > li.solved:after {
+	border: none;
+}
+
+.gaia-list article p {
+	margin: 0.5em 1.7em;
+}
+
+/* PIECES TABLE */
+#pieces-table {
+	margin: 1em auto;
+}
+#pieces-table > tbody > tr > td:nth-child(2),
+#pieces-table > tbody > tr > td:nth-child(3){
+	font-size: 2rem;
+  padding: 0 0 0 1em;
+}
+
+
+
