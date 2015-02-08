@@ -45,9 +45,11 @@ $.Dom.addEvent(window, 'load', function(){
 		// whiteWins.clearBoard().loadDiagram(diagrams.length -1).applyDiagram();
 		whiteWins.clearBoard();
 		
+		// Create diagrams list
 		whiteWins.each(function(diagram, key){
 			$.Dom.inject($.Dom.element('li', {
-					'data-key': key
+					'data-key': key,
+					'class': ''+(whiteWins._solved[key]?'solved':'')
 				}, 'diagram '+key, {
 				'click': function(event){
 					whiteWins.clearBoard().loadDiagram(event.target.getAttribute('data-key')).applyDiagram();
@@ -57,6 +59,10 @@ $.Dom.addEvent(window, 'load', function(){
 		});
 		
 		$.Dom.fireEvent(window, 'game-loaded');
+	});
+	
+	$.Dom.addEvent(window, 'solved-diagram', function(event){
+		$.Dom.addClass($.Dom.select('section[data-type="sidebar"] > nav > ul > li[data-key="'+event.detail.key+'"]')[0], 'solved');
 	});
 	
 	$.Dom.addEvent('index-nextdiagram', 'click', function(){
