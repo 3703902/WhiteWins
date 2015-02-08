@@ -92,3 +92,6 @@ section[role="status"].hidden {
 	}
 }
 
+section[data-type="sidebar"] > nav > ul > li.solved {
+	color: rgba(255, 255, 255, 0.5);
+}

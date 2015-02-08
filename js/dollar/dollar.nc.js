@@ -310,5 +310,24 @@ $['Json'] = {
 		catch(e) {
 			return null;
 		}
+	},
+	'encode': function(data) {
+		return JSON.stringify(data)
 	}
 };
+
+$['Storage'] = {
+	'get': function(key) {
+		return $.Json.decode(localStorage[key]);
+	},
+	'set': function(key, value) {
+		if (typeof key == 'object') {
+			$.Each(key, function(value, key){
+				localStorage[key] = $.Json.encode(value);
+			});
+		}
+		else {
+			localStorage[key] = $.Json.encode(value);
+		}
+	}
+}

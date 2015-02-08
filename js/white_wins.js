@@ -36,6 +36,8 @@ var WhiteWins = function(board, diagrams, status) {
 	this._start = null;
 	this._piece = '';
 	
+	this._solved = $.Storage.get('solved') || [];
+	
 	var self = this;
 	
 	$.Each($.Dom.children(this._board, 'div', 'cell'), function(cell){
@@ -68,6 +70,10 @@ var WhiteWins = function(board, diagrams, status) {
 					if (self.check(self._start, end)) {
 						// Right answer
 						self.writeStatus('Correct answer', true);
+						self.setSolvedDiagram();
+						$.Dom.fireEvent(window, 'solved-diagram', {'detail': {
+							'key': self._diagramIndex
+						}});
 					}
 					else {
 						// Wrong answer
@@ -173,6 +179,11 @@ WhiteWins.prototype.writeStatus = function(message, next) {
 		$.Dom.addClass(this._status, 'hidden');
 	}
 };
+
+WhiteWins.prototype.setSolvedDiagram = function() {
+	this._solved[this._diagramIndex] = true;
+	$.Storage.set('solved', this._solved);
+}
 
 WhiteWins.prototype.next = function() {
 	var index = this._diagramIndex +1;

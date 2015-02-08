@@ -109,6 +109,16 @@ $.Dom.addEvent(window, 'load', function(){
 		}
 	});
 	
+	$.Dom.addEvent('author', 'keyup', function(){
+		$.Dom.fireEvent(window, 'reload-output');
+	});
+	$.Dom.addEvent('comment', 'keyup', function(){
+		$.Dom.fireEvent(window, 'reload-output');
+	});
+	$.Dom.addEvent('reference', 'keyup', function(){
+		$.Dom.fireEvent(window, 'reload-output');
+	});
+	
 	// Hide coords on mouseout the board
 	$.Dom.addEvent('board', 'mouseout', function(){
 		$.Dom.id('coords').innerHTML = '';
@@ -117,6 +127,17 @@ $.Dom.addEvent(window, 'load', function(){
 	// Reload output textarea
 	$.Dom.addEvent(window, 'reload-output', function(){
 		var output = $.Dom.id('output');
+		
+		// Validate position
+		var result = validate();
+		if (!result.valid) {
+			output.innerHTML = result.message;
+			$.Dom.addClass(output, 'invalid');
+			return;
+		}
+		else {
+			$.Dom.removeClass(output, 'invalid');
+		}
 		
 		output.innerHTML = '{';
 		
@@ -131,6 +152,10 @@ $.Dom.addEvent(window, 'load', function(){
 		output.innerHTML += '"solution": {"start": "'+$.Dom.id('solution-start').value+'", "end": "'+$.Dom.id('solution-end').value+'"},';
 		output.innerHTML += '"suggestions": {}';
 		
+		output.innerHTML += '"author": "'+$.Dom.id('author').value+'",';
+		output.innerHTML += '"reference": "'+$.Dom.id('reference').value+'",';
+		output.innerHTML += '"comment": "'+$.Dom.id('comment').value+'"';
+		
 		output.innerHTML += '}';
 	});
 	
@@ -143,3 +168,52 @@ $.Dom.addEvent(window, 'load', function(){
 	// Load first time output
 	$.Dom.fireEvent(window, 'reload-output');
 });
+
+function validate() {
+	var result = {
+		'valid': true,
+		'message': ''
+	};
+	
+	// Check white king
+	var whiteKing = false;
+	// Check black king
+	var blackKing = false;
+	$.Each($.Dom.select('#board .cell'), function(cell){
+		if (cell.innerHTML == '♔') {
+			whiteKing = true;
+		}
+		if (cell.innerHTML == '♚') {
+			blackKing = true;
+		}
+	});
+	
+	// Invalid position
+	if (!whiteKing) {
+		result = {
+			'valid': false,
+			'message': 'White king missing'
+		};
+	}
+	else if (!blackKing) {
+		result = {
+			'valid': false,
+			'message': 'Black king missing'
+		};
+	}
+	else if (!$.Dom.id('solution-start').value) {
+		result = {
+			'valid': false,
+			'message': 'Solution not defined'
+		};
+	}
+	else if (!$.Dom.id('solution-end').value) {
+		result = {
+			'valid': false,
+			'message': 'Solution not defined'
+		};
+	}
+	
+	// Return
+	return result;
+}
