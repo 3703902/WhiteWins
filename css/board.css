@@ -5,7 +5,7 @@
   top: 50%;
   left: 50%;
   margin: -3.25em 0 0 -4em;
-  font-size: 3rem;
+  font-size: 5rem;
   border: 0.2em solid;
   color: black;
   transition: font-size 0.4s ease;
@@ -96,24 +96,25 @@
 
 @media (max-width: 300px) {
   #board {
-    font-size: 1rem;
+    font-size: 2rem;
   }
 }
 @media (min-width: 300px) and (max-width: 400px) {
   #board {
-    font-size: 1.5rem;
+    font-size: 2.5rem;
   }
 }
 @media (min-width: 400px) and (max-width: 500px) {
   #board {
-    font-size: 2rem;
+    font-size: 3.5rem;
   }
 }
 @media (min-width: 500px) and (max-width: 600px) {
   #board {
-    font-size: 2.5rem;
+    font-size: 4.5rem;
   }
 }
+
 
 
 

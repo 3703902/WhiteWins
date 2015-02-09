@@ -1,0 +1,14 @@
+.gaia-list article p {
+	margin: 0.5em 1.7em;
+}
+
+/* PIECES TABLE */
+#pieces-table {
+	margin: 1em auto;
+}
+#pieces-table > tbody > tr > td:nth-child(2),
+#pieces-table > tbody > tr > td:nth-child(3){
+	font-size: 4rem;
+  padding: 0 0 0 1em;
+}
+

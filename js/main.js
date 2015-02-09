@@ -42,8 +42,8 @@ $.Dom.addEvent(window, 'load', function(){
 	// Load the game
 	$.Dom.addEvent(window, 'diagrams-loaded', function(){
 		whiteWins = new WhiteWins($.Dom.id('board'), diagrams, $.Dom.id('status'));
-		// whiteWins.clearBoard().loadDiagram(diagrams.length -1).applyDiagram();
-		whiteWins.clearBoard();
+		whiteWins.clearBoard().loadDiagram(whiteWins.getLastOrFirstUnsolved()).applyDiagram();
+		// whiteWins.clearBoard();
 		
 		// Create diagrams list
 		whiteWins.each(function(diagram, key){
@@ -76,9 +76,11 @@ $.Dom.addEvent(window, 'load', function(){
 		$.Dom.id('rules-diagramsnumber').innerHTML = whiteWins._diagrams.length;
 	});
 	
+	// Hide/show solved diagrams names
 	$.Dom.addEvent('index-sidebar-showsolved', 'change', function(event){
 		$.Dom.id('index-sidebar-diagramslist').setAttribute('data-showsolved', event.target.checked);
 	});
+	$.Dom.fireEvent('index-sidebar-showsolved', 'change'); // On page load :D
 	
 	// Set ready attribute
 	$.Dom.addEvent(window, 'game-loaded', function(){

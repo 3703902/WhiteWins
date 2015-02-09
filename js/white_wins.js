@@ -186,17 +186,55 @@ WhiteWins.prototype.setSolvedDiagram = function() {
 }
 
 WhiteWins.prototype.next = function() {
-	var index = this._diagramIndex +1;
+	var l = 0;
+	var index = (this._diagramIndex || 0);
+	
+	// Search the first unsolved diagram
+	while (l <= this._solved.length) {
+		index = index +1;
+		// Turnaround
+		if (index >= this._diagrams.length) {
+			index = 0;
+		}
+		
+		if (!this._solved[index]) {
+			// This is unsolved 
+			return index;
+		}
+		
+		l++;
+	}
+	
+	// No unsolved diagram found
+	if (!this._solved[0]) {
+		// Diagram 0 is unsolved
+		// This can happen the first time one open the app
+		return 0;
+	}
+	
+	// Return the following even if it's solved
+	index = (this._diagramIndex || 0) +1;
 	if (index >= this._diagrams.length) {
 		index = 0;
 	}
 	return index;
 };
 
+WhiteWins.prototype.getLastOrFirstUnsolved = function() {
+	var index = parseInt($.Storage.get('last-opened'));
+	if (index || index === 0) {
+		return index;
+	}
+	else {
+		return this.next();
+	}
+};
+
 WhiteWins.prototype.loadDiagram = function(index) {
 	index = parseInt(index);
 	this._diagramIndex = index;
 	this._diagram = this._diagrams[index];
+	$.Storage.set('last-opened', index);
 	return this;
 };
 
