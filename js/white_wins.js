@@ -190,13 +190,12 @@ WhiteWins.prototype.next = function() {
 	var index = (this._diagramIndex || 0);
 	
 	// Search the first unsolved diagram
-	while (l <= this._solved.length) {
+	while (l != 0 && l <= this._solved.length) {
 		index = index +1;
 		// Turnaround
 		if (index >= this._diagrams.length) {
 			index = 0;
 		}
-		
 		if (!this._solved[index]) {
 			// This is unsolved 
 			return index;
