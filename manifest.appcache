@@ -1,16 +1,26 @@
 CACHE MANIFEST
-# v0.0.10
+# v0.0.12
 
 CACHE:
+
+# Main page
 index.html
 
-css/white_wins.css
+# Main CSS files
 css/board.css
+css/controllers.css
+css/rules.css
+css/sidebar.css
+css/white_wins.css
 
+# Gaia CSS resources
+css/resources/drawer.css
 css/resources/headers.css
 css/resources/layout.css
 css/resources/status.css
+css/resources/switches.css
 
+# Gaia images
 css/resources/headers/images/back.png
 css/resources/headers/images/back@1.5x.png
 css/resources/headers/images/back@2.25x.png
@@ -24,13 +34,24 @@ css/resources/headers/images/options@1.5x.png
 css/resources/headers/images/options@2.25x.png
 css/resources/headers/images/options@2x.png
 css/resources/status/images/ui/pattern.png
+css/resources/switches/images/switch.background.png
+css/resources/switches/images/switch.background@1.5x.png
+css/resources/switches/images/switch.background_off.png
+css/resources/switches/images/switch.background_off@1.5x.png
+css/resources/switches/images/switch.background_off@2.25x.png
+css/resources/switches/images/switch.background_on@2.25x.png
+css/resources/switches/images/switch.background_rtl.png
+css/resources/switches/images/switch.background_rtl@1.5x.png
 
+# JS
 js/white_wins.js
 js/l10n.js
 js/main.js
 js/Page.js
 js/dollar/dollar.nc.js
 
+# Other
 favicon.ico
 
+# Diagrams
 diagrams/diagrams.json

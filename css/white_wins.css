@@ -1,3 +1,7 @@
+html {
+	font-size: 10px;
+}
+
 /* Setting panels: full-size <section role="region"> blocks */
 section[role="region"] {
 position: absolute;
@@ -77,7 +81,7 @@ section[role="status"].hidden {
 #index-2moves-subtitle {
 	transition: all 0.4s ease;
 }
-@media (min-width: 600px) {
+@media (min-width: 400px) {
 	#index-2moves-subtitle{
     font-size: 0;
     padding: 0;
@@ -86,40 +90,14 @@ section[role="status"].hidden {
     background-color: white;
   }
 }
-@media (max-width: 600px) {
+@media (max-width: 400px) {
 	#index-2moves-inline{
 		font-size: 0;
 	}
 }
 
-section[data-type="sidebar"] > nav > ul > li.solved {
-	color: rgba(255, 255, 255, 0.5);
-  transition: all ease 0.25s;
-}
 
-section[data-type="sidebar"] > nav > ul:not([data-showsolved="true"]) > li.solved {
-  font-size: 0;
-  padding: 0;
-  height: 0;
-  min-height: 0;
-}
-section[data-type="sidebar"] > nav > ul:not([data-showsolved="true"]) > li.solved:after {
-	border: none;
-}
 
-.gaia-list article p {
-	margin: 0.5em 1.7em;
-}
-
-/* PIECES TABLE */
-#pieces-table {
-	margin: 1em auto;
-}
-#pieces-table > tbody > tr > td:nth-child(2),
-#pieces-table > tbody > tr > td:nth-child(3){
-	font-size: 2rem;
-  padding: 0 0 0 1em;
-}
 
 
 
