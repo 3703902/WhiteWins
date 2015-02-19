@@ -27,7 +27,166 @@ var translation = {
 	'♟':'bp'		// Black pawn
 };
 
+var data = {
+	'position': [],
+	'solution': {},
+	'suggestions': {},
+	'author': '',
+	'reference': '',
+	'comment': ''
+};
+
 $.Dom.addEvent(window, 'load', function(){
+	// Add next/previous events
+	$.Each($.Dom.select('[data-goto]'), function(button){
+		$.Dom.addEvent(button, 'click', function(event){
+			// Get current section
+			var current = $.Dom.select('.current')[0];
+			// Get next section
+			var next = $.Dom.id(event.target.getAttribute('data-goto'));
+			
+			$.Dom.removeClass(current, 'current');
+			if (!$.Dom.hasClass(next, 'previous')) {
+				$.Dom.addClass(current, 'previous');
+			}
+			$.Dom.addClass(next, 'current');
+			$.Dom.removeClass(next, 'previous');
+		});
+	});
+	
+	$.Dom.addEvent('author', 'change', function(event){
+		data.author = event.target.value;
+		$.Dom.fireEvent(window, 'reload-output');
+	});
+	$.Dom.addEvent('reference', 'change', function(event){
+		data.reference = event.target.value;
+		$.Dom.fireEvent(window, 'reload-output');
+	});
+	$.Dom.addEvent('comment', 'change', function(event){
+		data.comment = event.target.value;
+		$.Dom.fireEvent(window, 'reload-output');
+	});
+	
+	$.Each($.Dom.select('#pieces li'), function(piece){
+		// Add dragstart events for pieces
+		$.Dom.addEvent(piece, 'dragstart', function(event){
+			event.dataTransfer.effectAllowed = 'copy';
+			event.dataTransfer.dropEffect = 'copy';
+			event.dataTransfer.setData('text/plain', event.target.innerHTML);
+		});
+		// Add drag end event
+		$.Dom.addEvent(piece, 'dragend', function(event){
+			$.Each($.Dom.select('.droppable'), function(cell){
+				$.Dom.removeClass(cell, 'droppable');
+			});
+		});
+	});
+	(function(){
+		var start_cell = null;
+		$.Each($.Dom.select('#set-pieces .cell'), function(cell){
+			// Add dragstart events for pieces
+			$.Dom.addEvent(cell, 'dragstart', function(event){
+				if (event.target.innerHTML == '') {
+					return;
+				}
+				//event.dataTransfer.effectAllowed = 'move';
+				//event.dataTransfer.dropEffect = 'move';
+				event.dataTransfer.setData('text/plain', event.target.innerHTML);
+				start_cell = event.target;
+			});
+			// Add drag end event
+			$.Dom.addEvent(cell, 'dragend', function(event){
+				$.Each($.Dom.select('.droppable'), function(cell){
+					$.Dom.removeClass(cell, 'droppable');
+				});
+				//if(start_cell && start_cell != event.target){
+				//	start_cell.innerHTML = '';
+				//}
+				//start_cell = null;
+			});
+			// Prevent default dragover
+			$.Dom.addEvent(cell, 'dragover', function(event){
+				event.preventDefault();
+			});
+			// Drop piece onto a cell
+			$.Dom.addEvent(cell, 'drop', function(event){
+				event.preventDefault();
+				event.target.innerHTML = event.dataTransfer.getData('text/plain');
+				if(start_cell && start_cell != event.target){
+					start_cell.innerHTML = '';
+				}
+				start_cell = null;
+				$.Dom.fireEvent(window, 'reload-diagram');
+			});
+			// Drag enter highlight cell
+			$.Dom.addEvent(cell, 'dragenter', function(event){
+				//$.Dom.addClass(event.target, 'droppable');
+			});
+			// Drag leave removes highlight
+			$.Dom.addEvent(cell, 'dragleave', function(event){
+				//$.Dom.removeClass(event.target, 'droppable');
+			});
+			$.Dom.addEvent(cell, 'click', function(event){
+				event.target.innerHTML = '';
+			});
+		});
+	})();
+	
+	(function(){
+		var start = '';
+		var end = '';
+		$.Each($.Dom.select('#set-solution .cell'), function(cell){
+			$.Dom.addEvent(cell, 'click', function(event){
+				if (!start) {
+					start = event.target.getAttribute('data-coord');
+					$.Dom.addClass(event.target, 'highlight');
+					$.Dom.addClass(event.target, 'solution-start');
+				}
+				else if (!end) {
+					end = event.target.getAttribute('data-coord');
+					data.solution.start = start;
+					data.solution.end = end;
+					$.Dom.addClass(event.target, 'highlight');
+					$.Dom.addClass(event.target, 'solution-end');
+					$.Dom.fireEvent(window, 'reload-output');
+				}
+				else {
+					start = event.target.getAttribute('data-coord');
+					end = '';
+					data.solution = {};
+					$.Each($.Dom.select('#set-solution .highlight'), function(cell){
+						$.Dom.removeClass(cell, 'highlight');
+						$.Dom.removeClass(cell, 'solution-start');
+						$.Dom.removeClass(cell, 'solution-end');
+					});
+				}
+			});
+		});
+	})();
+	
+	$.Dom.addEvent(window, 'reload-diagram', function(){
+		data.position = [];
+		$.Each($.Dom.select('#set-pieces .cell'), function(cell){
+			if (cell.innerHTML != '') {
+				data.position.push(cell.getAttribute('data-coord')+translation[cell.innerHTML]);
+			}
+			$.Dom.select('#set-solution .cell[data-coord="'+cell.getAttribute('data-coord')+'"]')[0].innerHTML = cell.innerHTML;
+			$.Dom.select('#set-suggestions .cell[data-coord="'+cell.getAttribute('data-coord')+'"]')[0].innerHTML = cell.innerHTML;
+		});
+		$.Dom.fireEvent(window, 'reload-output');
+	});
+	
+	$.Dom.addEvent(window, 'reload-output', function(){
+		$.Dom.id('output').value = $.Json.encode(data);
+	});
+	
+	document.body.setAttribute('data-ready', true);
+});
+
+
+
+
+$.Dom.addEvent(window, 'fake', function(){
 	$.Each($.Dom.select('#pieces li'), function(piece){
 		// Add dragstart events for pieces
 		$.Dom.addEvent(piece, 'dragstart', function(event){
