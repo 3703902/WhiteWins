@@ -51,8 +51,8 @@ $.Dom.addEvent(window, 'load', function(){
 					'data-key': key,
 					'class': 'pointer '+(whiteWins._solved[key]?'solved':'')
 				}, 'diagram '+key, {
-				'click': function(event){
-					whiteWins.clearBoard().loadDiagram(event.target.getAttribute('data-key')).applyDiagram();
+				'click': function(event) {
+					whiteWins.writeStatus('', '', ['status-ok', 'status-ko']).clearBoard().loadDiagram(event.target.getAttribute('data-key')).applyDiagram();
 					location.href = '#';
 				}
 			}), 'index-sidebar-diagramslist');
@@ -67,7 +67,7 @@ $.Dom.addEvent(window, 'load', function(){
 	
 	$.Dom.addEvent('index-nextdiagram', 'click', function(){
 		// TODO: search the next unsolved diagram
-		whiteWins.writeStatus('', false);
+		whiteWins.writeStatus('', '', ['status-ok', 'status-ko']);
 		whiteWins.clearBoard().loadDiagram(whiteWins.next()).applyDiagram();
 	});
 	
