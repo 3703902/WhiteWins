@@ -60,7 +60,7 @@ var WhiteWins = function(board, diagrams, status) {
 						$.Dom.removeClass(cell, 'end');
 					});
 					// Clear status bar
-					self.writeStatus('', false);
+					self.writeStatus('', '', ['status-ok', 'status-ko']);
 				}
 				else if(self.checkValidMove(self._piece.substring(1,2), self._start, end)){
 					$.Dom.addClass(cell, 'highlight');
@@ -69,7 +69,7 @@ var WhiteWins = function(board, diagrams, status) {
 					
 					if (self.check(self._start, end)) {
 						// Right answer
-						self.writeStatus('Correct answer', true);
+						self.writeStatus('Correct answer', 'status-ok', 'status-ko');
 						self.setSolvedDiagram();
 						$.Dom.fireEvent(window, 'solved-diagram', {'detail': {
 							'key': self._diagramIndex
@@ -77,7 +77,7 @@ var WhiteWins = function(board, diagrams, status) {
 					}
 					else {
 						// Wrong answer
-						self.writeStatus('Wrong answer', false);
+						self.writeStatus('Wrong answer', 'status-ko', 'status-ok');
 						
 						// If possible suggest a move for the black
 						$.Each(self._diagram.suggestions, function(byMove, move){
@@ -116,7 +116,7 @@ var WhiteWins = function(board, diagrams, status) {
 					$.Dom.removeClass(cell, 'end');
 				});
 				// Clear status bar
-				self.writeStatus('', false);
+				self.writeStatus('', '', ['status-ok', 'status-ko']);
 				
 				if(cell.innerHTML && !$.Dom.hasClass(cell, 'black')) {
 					self._start = cell.getAttribute('data-coord');
@@ -128,6 +128,20 @@ var WhiteWins = function(board, diagrams, status) {
 				}
 			}
 		});
+	});
+	
+	$.Dom.addEvent('index', 'click', function(event){
+		if (event.target.id == 'index') {
+			// Clear highlights
+			$.Each($.Dom.select('.cell.highlight'), function(cell){
+				$.Dom.removeClass(cell, 'highlight');
+				$.Dom.removeClass(cell, 'player');
+				$.Dom.removeClass(cell, 'opponent');
+				$.Dom.removeClass(cell, 'start');
+				$.Dom.removeClass(cell, 'end');
+			});
+			self.writeStatus('', '', ['status-ok', 'status-ko']);
+		}
 	});
 };
 
@@ -163,21 +177,23 @@ WhiteWins.prototype.checkValidMove = function(piece, start, end) {
 	}
 }
 
-WhiteWins.prototype.writeStatus = function(message, next) {
-	var p = $.Dom.children(this._status, 'p')[0]
+WhiteWins.prototype.writeStatus = function(message, add_class, remove_class) {
+	var p = $.Dom.children(this._status, 'p')[0];
 	if (message) {
 		p.innerHTML = ''+message+'';
-		if (next) {
-			$.Dom.removeClass('index-nextdiagram', 'hidden');
-		}
-		else {
-			$.Dom.addClass('index-nextdiagram', 'hidden');
-		}
 		$.Dom.removeClass(this._status, 'hidden');
 	}
 	else {
 		$.Dom.addClass(this._status, 'hidden');
 	}
+	var self = this;
+	$.Each(add_class, function(a_class){
+		$.Dom.addClass(self._status, a_class);
+	});
+	$.Each(remove_class, function(a_class){
+		$.Dom.removeClass(self._status, a_class);
+	});
+	return this;
 };
 
 WhiteWins.prototype.setSolvedDiagram = function() {

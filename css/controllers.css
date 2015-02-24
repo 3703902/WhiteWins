@@ -1,5 +1,4 @@
-
-#index-nextdiagram {
+.status-ok #index-nextdiagram {
 	color: green;
   position: absolute;
   right: 0;
@@ -14,4 +13,7 @@
   cursor: pointer;
 }
 
+.status-ko #index-nextdiagram {
+	display: none;
+}
 

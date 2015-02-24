@@ -55,29 +55,32 @@ $['Dom'] = {
 		if (typeof element == 'string') {
 			element = $.Dom.id(element);
 		}
-		return element.className.split(' ').indexOf(a_class) != -1;
+		return element.className.replace(/\s\s+/, '').split(' ').indexOf(a_class) != -1;
 	},
 	'addClass': function(element, a_class) {
 		if (typeof element == 'string') {
 			element = $.Dom.id(element);
 		}
 		if (!$.Dom.hasClass(element, a_class)) {
-			element.className += ' '+a_class;
+			var classes = element.className.replace(/\s\s+/, '').split(' ');
+			classes.push(a_class);
+			element.className = classes.join(' ');
+			// element.className += ' '+a_class;
 		}
 	},
 	'removeClass': function(element, a_class) {
 		if (typeof element == 'string') {
 			element = $.Dom.id(element);
 		}
-		var classes = element.className.split(' ');
+		var classes = element.className.replace(/\s\s+/, '').split(' ');
 		var idx = 0;
 		while((idx = classes.indexOf(a_class)) != -1) {
 			classes.splice(idx, 1);
 		}
-		element.className = '';
-		$.Each(classes, function(item){
+		element.className = classes.join(' ');
+		/*$.Each(classes, function(item){
 			element.className += ' '+item;
-		});
+		});*/
 	},
 	'addEvent': function(element, event, fn){
 		if (typeof element == 'string') {
