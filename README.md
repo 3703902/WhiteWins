@@ -5,4 +5,3 @@ Work in progress
 
 * Collect a large number of diagrams
 * Add some L10n
-* Instruments for external contributions

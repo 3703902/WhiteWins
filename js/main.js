@@ -1,9 +1,3 @@
-var development = false;
-
-// TODO: load last open diagram
-// TODO: Save key of solved diagrams
-// TODO: display in light grey solved diagrams
-
 $.Dom.addEvent(window, 'load', function(){
 	
 	// Set browser language
@@ -42,8 +36,7 @@ $.Dom.addEvent(window, 'load', function(){
 	// Load the game
 	$.Dom.addEvent(window, 'diagrams-loaded', function(){
 		whiteWins = new WhiteWins($.Dom.id('board'), diagrams, $.Dom.id('status'));
-		whiteWins.clearBoard().loadDiagram(whiteWins.getLastOrFirstUnsolved()).applyDiagram();
-		// whiteWins.clearBoard();
+		whiteWins.clearBoard().loadDiagram(whiteWins.getLastOrFirstUnsolved()).applyDiagram().applyAllowedMoves();
 		
 		// Create diagrams list
 		whiteWins.each(function(diagram, key){
@@ -52,7 +45,7 @@ $.Dom.addEvent(window, 'load', function(){
 					'class': 'pointer '+(whiteWins._solved[key]?'solved':'')
 				}, 'diagram '+key, {
 				'click': function(event) {
-					whiteWins.writeStatus('', '', ['status-ok', 'status-ko']).clearBoard().loadDiagram(event.target.getAttribute('data-key')).applyDiagram();
+					whiteWins.writeStatus('', '', ['status-ok', 'status-ko']).clearBoard().loadDiagram(event.target.getAttribute('data-key')).applyDiagram().applyAllowedMoves();
 					location.href = '#';
 				}
 			}), 'index-sidebar-diagramslist');
@@ -68,12 +61,13 @@ $.Dom.addEvent(window, 'load', function(){
 	$.Dom.addEvent('index-nextdiagram', 'click', function(){
 		// TODO: search the next unsolved diagram
 		whiteWins.writeStatus('', '', ['status-ok', 'status-ko']);
-		whiteWins.clearBoard().loadDiagram(whiteWins.next()).applyDiagram();
+		whiteWins.clearBoard().loadDiagram(whiteWins.next()).applyDiagram().applyAllowedMoves();
 	});
 	
 	// Set diagrams number
 	$.Dom.addEvent(window, 'diagrams-loaded', function(){
 		$.Dom.id('rules-diagramsnumber').innerHTML = whiteWins._diagrams.length;
+		$.Dom.id('index-sidebar-diagramsnumber').innerHTML = whiteWins._diagrams.length;
 	});
 	
 	// Hide/show solved diagrams names
@@ -82,30 +76,19 @@ $.Dom.addEvent(window, 'load', function(){
 	});
 	$.Dom.fireEvent('index-sidebar-showsolved', 'change'); // On page load :D
 	
+	$.Dom.addEvent('index-goto-info', 'click', function(){
+		var info = whiteWins.getInfo();
+		if (/http[s]?:\/\//.test(info.reference)) {
+			info.reference = '<a href="'+info.reference+'" title="Reference link" class="pointer">' + info.reference + '</a>';
+		}
+		
+		$.Dom.id('info-author').innerHTML = info.author;
+		$.Dom.id('info-reference').innerHTML = info.reference;
+		$.Dom.id('info-comment').innerHTML = info.comment;
+	});
+	
 	// Set ready attribute
 	$.Dom.addEvent(window, 'game-loaded', function(){
 		document.body.setAttribute('data-ready', 'true');
 	});
-	
-	// Add some development useful features
-	if (development) {
-		var coords = $.Dom.element('div', {}, '', {});
-		$.Dom.style(coords, {
-			'position': 'absolute',
-			'background-color': 'silver',
-			'border': '0.1em solid black',
-			'padding': '0.2em 0.5em',
-			'text-align': 'center'
-		});
-		$.Dom.inject(coords, document.body);
-		$.Each($.Dom.select('.cell'), function(cell){
-			$.Dom.addEvent(cell, 'mouseover', function(event){
-				coords.innerHTML = event.target.getAttribute('data-coord');
-				$.Dom.style(coords, {
-					'top': (event.clientY +10) +'px',
-					'left': (event.clientX +10) +'px'
-				});
-			});
-		});
-	}
 });

@@ -1,14 +1,17 @@
 [
 	{
+		"author":"white-wins-tutorial","reference":"http://mastro-elfo.github.io/WhiteWins/","comment":"",
 		"position":[
 			"64wk",
 			"30wq",
 			"77bk"
 		],
-		"solution":{
-			"start":"64",
-			"end":"65"
+		"allowed":{
 		},
+		"solutions": [{
+			"start": "64",
+			"end": "65"
+		}],
 		"suggestions":{
 			"6455":[{
 				"start":"77",
@@ -56,6 +59,7 @@
 		}
 	},
 	{
+		"author":"white-wins","reference":"http://mastro-elfo.github.io/WhiteWins/","comment":"First diagram",
 		"position":[
 			"10wk",
 			"40wh",
@@ -74,12 +78,14 @@
 			"46bh",
 			"47wq"
 		],
-		"solution":{
-			"start":"47",
-			"end":"14"
-		},
+		"allowed":{},
+		"solutions": [{
+			"start": "47",
+			"end": "14"
+		}],
 		"suggestions":{}
 	},{
+		"author":"white-wins","reference":"http://mastro-elfo.github.io/WhiteWins/","comment":"Second diagram",
 		"position":[
 			"37wq",
 			"47wk",
@@ -93,10 +99,11 @@
 			"22bq",
 			"42br"
 		],
-		"solution":{
-			"start":"45",
-			"end":"64"
-		},
+		"allowed":{},
+		"solutions": [{
+			"start": "45",
+			"end": "64"
+		}],
 		"suggestions":{
 			"4533":[{
 				"start":"63",
