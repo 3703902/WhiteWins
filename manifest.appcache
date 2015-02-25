@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# v0.0.16
+# v0.0.18
 
 CACHE:
 
@@ -12,6 +12,9 @@ css/controllers.css
 css/rules.css
 css/sidebar.css
 css/white_wins.css
+
+# Main CSS images
+css/icon-info.png
 
 # Gaia CSS resources
 css/resources/drawer.css

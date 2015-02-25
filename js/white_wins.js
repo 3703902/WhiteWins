@@ -281,9 +281,50 @@ WhiteWins.prototype.applyDiagram = function () {
 };
 
 WhiteWins.prototype.check = function(start, end) {
-	return start == this._diagram.solution.start && end == this._diagram.solution.end;
+	var correct = false;
+	$.Each(this._diagram.solutions, function(solution){
+		if (start == solution.start && end == solution.end) {
+			correct = true;
+		}
+		return !correct;
+	});
+	return correct;
+	// return start == this._diagram.solution.start && end == this._diagram.solution.end;
 };
 
 WhiteWins.prototype.each = function(callback) {
 	$.Each(this._diagrams, callback);
+};
+
+WhiteWins.prototype.convert = function(coord){
+	return ['a','b','c','d','e','f','g','h'][parseInt(coord[0])] + (parseInt(coord[1]) +1);
+};
+
+WhiteWins.prototype.applyAllowedMoves = function(){
+	$.Dom.id('index-allowed-moves').innerHTML = '';
+	if (this._diagram.allowed.wlc) {
+		$.Dom.inject($.Dom.element('li', {}, '<span>White </span><code class="white">O-O-O</code>'), 'index-allowed-moves');
+	}
+	if (this._diagram.allowed.wsc) {
+		$.Dom.inject($.Dom.element('li', {}, '<span>White </span><code class="white">O-O</code>'), 'index-allowed-moves');
+	}
+	if (this._diagram.allowed.blc) {
+		$.Dom.inject($.Dom.element('li', {}, '<span>Black </span><code class="black">O-O-O</code>'), 'index-allowed-moves');
+	}
+	if (this._diagram.allowed.bsc) {
+		$.Dom.inject($.Dom.element('li', {}, '<span>Black </span><code class="black">O-O</code>'), 'index-allowed-moves');
+	}
+	if (this._diagram.allowed.enp) {
+		$.Dom.inject($.Dom.element('li', {}, '<span>En-passant </span><code class="enpassant">'+this.convert(this._diagram.allowed.enp)+'</code>'), 'index-allowed-moves');
+	}
+	return this;
+};
+
+WhiteWins.prototype.getInfo = function(){
+	return {
+		'author': this._diagram.author,
+		'reference': this._diagram.reference,
+		'comment': this._diagram.comment,
+		'_diagramIndex': this._diagramIndex
+	};
 };

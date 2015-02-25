@@ -122,3 +122,54 @@
     font-size: 4.5rem;
   }
 }
+
+#index-allowed-moves {
+	position: absolute;
+  top: 50%;
+  left: 1em;
+  margin-top: -10em;
+}
+[data-ready="true"] #index-allowed-moves {
+	transition: font-size 0.25s ease;
+}
+#index-allowed-moves li {
+	padding: 0.2em 0.5em;
+}
+#index-allowed-moves li:not(:last-child) {
+	border-bottom: 1px solid #F97C17;
+}
+
+@media (max-width: 800px) {
+  #index-allowed-moves span {
+    display: none
+  }
+  #index-allowed-moves code {
+    display: block;
+    text-align: center;
+    padding: 0 0.2em;
+    border-radius: 1em;
+  	border: 0.2em solid black;
+  }
+  #index-allowed-moves code.white {}
+  #index-allowed-moves code.black {
+    color: white;
+    background-color: black;
+  }
+	#index-allowed-moves code.enpassant {
+		border-color: transparent;
+	}
+  #index-allowed-moves code.enpassant:before {
+    content: "\02192";
+    margin-right: 0.2em;
+  }
+}
+@media (max-width: 700px) {
+  #index-allowed-moves {
+  	top: auto;
+    bottom: 1em;
+  }
+  #index-allowed-moves#index-allowed-moves li {
+    float: left;
+    border: 0 solid transparent;
+  }
+}

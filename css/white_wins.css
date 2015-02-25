@@ -107,9 +107,11 @@ section[role="region"]:target > a.hide-sidebar {
 	}
 }
 
+#index-goto-info {
+	background: url(icon-info.png) center no-repeat;
+  background-size: 65%;
+}
 
-
-
-
-
-
+#index-goto-info:hover {
+  background-color: rgba(0,0,0,0.075);
+}

@@ -31,7 +31,7 @@
 	<body role="application">
 		<section data-type="sidebar" class="vbox scroll">
 			<header>
-				<h1>Choose a diagram</h1>
+				<h1>Choose a diagram <em>(<span id="index-sidebar-diagramsnumber">0</span>)</em></h1>
 			</header>
 			<nav class="gaia-list scroll">
 				<ul>
@@ -53,6 +53,7 @@
 				<a href="#index" class="pointer"><span class="icon icon-menu pointer">show sidebar</span></a>
 				
 				<menu type="toolbar">
+					<button id="index-goto-info" data-goto="info" class="pointer"></button>
 					<button id="index-goto-rules" data-goto="rules" class="pointer icon icon-options"></button>
 				</menu>
 				
@@ -64,6 +65,7 @@
 				<p id="index-nextdiagram">next</p>
 			</section>
 			<section class="fit scroll">
+				<ul id="index-allowed-moves"></ul>
 				<div id="board">
 					<div class="row">
 						<div class="cell" data-coord="07">&#9820;</div>
@@ -248,12 +250,25 @@
 				</article>
 				<article>
 					<header>Bugs and issues</header>
-					<p>Please, tell us if you find a bug: <a href="https://github.com/mastro-elfo/WhiteWins/issues" title="Bug and issues">Github bug and issues</a>.</p>
+					<p>Please, tell us if you find a bug: <a href="https://github.com/mastro-elfo/WhiteWins/issues" title="Bug and issues on github">Github bug and issues</a>.</p>
 				</article>
+			</section>
+		</section>
+		
+		<section role="region" id="info">
+			<header>
+				<button title="Back" data-goback=""><span class="icon icon-back">back</span></button>
+				
+				<h1>Diagram info</h1>
+			</header>
+			<section class="fit scroll gaia-list">
 				<article>
-					<header>Contribute</header>
-					<p>As soon as possible, a simple page to create diagrams will be available. If you wish to contribute by suggesting new diagrams it will be appreciated.</p>
-					<p>An alpha version of the wizard is available here: <a href="http://mastro-elfo.github.io/WhiteWins/wizard/" title="Wizard">Wizard</a></p>
+					<header>General info</header>
+					<ul>
+						<li>Author:&nbsp;<span id="info-author"></span></li>
+						<li>Reference:&nbsp;<span id="info-reference"></span></li>
+						<li>Comment:&nbsp;<span id="info-comment"></span></li>
+					</ul>
 				</article>
 			</section>
 		</section>
