@@ -151,30 +151,320 @@ WhiteWins.prototype.checkValidMove = function(piece, start, end) {
 	var endX = parseInt(end.substring(0,1));
 	var endY = parseInt(end.substring(1,2));
 	
-	// if end cell has white piece => not a valid move
-	var endCell = $.Dom.select('.cell[data-coord="'+end+'"]')[0];
-	if(this._translation[endCell.innerHTML] && this._translation[endCell.innerHTML][0] == 'w') {
+	// Empty board check
+	var valid_end = false;
+	switch (piece) {
+		case 'k':
+			valid_end = (Math.abs(startX - endX) <= 1 && Math.abs(startY - endY) <= 1) ||
+				(startX == 4 && startY == 0 && ((endX == 2 && endY == 0) || (endX == 6 && endY == 0)));
+			break;
+		case 'q':
+			valid_end = (startX == endX || startY == endY) || (endY - endX == startY - startX) || (endY + endX ==  + startY + startX);
+			break;
+		case 'b':
+			valid_end = (endY - endX == startY - startX) || (endY + endX ==  + startY + startX);
+			break;
+		case 'h':
+			valid_end = (Math.abs(startX - endX) == 1 && Math.abs(startY - endY) == 2) || (Math.abs(startX - endX) == 2 && Math.abs(startY - endY) == 1);
+			break;
+		case 'r':
+			valid_end = startX == endX || startY == endY;
+			break;
+		case 'p':
+			valid_end = (endY - startY == 1 && Math.abs(startX - endX) <= 1) || (startY == 1 && endY == 3 && startX == endX);
+			break;
+	}
+	if (!valid_end) {
 		return false;
 	}
 	
-	// TODO: if a piece is in the middle => not a valid move
-	
-	switch (piece) {
-		case 'k':
-			return Math.abs(startX - endX) <= 1 && Math.abs(startY - endY) <= 1
-		case 'q':
-			return (startX == endX || startY == endY) || (endY - endX == startY - startX) || (endY + endX ==  + startY + startX);
-		case 'b':
-			return (endY - endX == startY - startX) || (endY + endX ==  + startY + startX);
-		case 'h':
-			return (Math.abs(startX - endX) == 1 && Math.abs(startY - endY) == 2) || (Math.abs(startX - endX) == 2 && Math.abs(startY - endY) == 1);
-		case 'r':
-			return startX == endX || startY == endY;
-		case 'p':
-			return (endY - startY == 1 && Math.abs(startX - endX) <= 1) || (startY == 1 && endY == 3 && startX == endX);
-		default:
-			return false;
+	// End on white check
+	var valid_white_end = false;
+	var endCell = $.Dom.select('.cell[data-coord="'+end+'"]')[0];
+	if(this._translation[endCell.innerHTML] && this._translation[endCell.innerHTML][0] == 'w') {
+		valid_white_end = false;
 	}
+	else {
+		valid_white_end = true;
+	}
+	
+	// Limited movements
+	var valid_limited_movements = false;
+	switch (piece) {
+		case 'q':
+			valid_limited_movements = true;
+			if (startX == endX) {
+				for (var i=Math.min(startY,endY)+1; i<Math.max(startY,endY); i++) {
+					if ($.Dom.select('.cell[data-coord="'+startX+i+'"]')[0].innerHTML) {
+						valid_limited_movements = false;
+						break;
+					}
+				}
+			}
+			else if(startY == endY){
+				for (var i=Math.min(startX,endX)+1; i<Math.max(startX,endX); i++) {
+					if ($.Dom.select('.cell[data-coord="'+i+startY+'"]')[0].innerHTML) {
+						valid_limited_movements = false;
+						break;
+					}
+				}
+			}
+			else {
+				for (var i=Math.min(startX,endX)+1,j=Math.min(startY,endY)+1; i<Math.max(startX,endX); i++,j++){
+					if ($.Dom.select('.cell[data-coord="'+i+j+'"]')[0].innerHTML) {
+						valid_limited_movements = false;
+						break;
+					}
+				}
+			}
+			break;
+		case 'b':
+			valid_limited_movements = true;
+			for (var i=Math.min(startX,endX)+1,j=Math.min(startY,endY)+1; i<Math.max(startX,endX); i++,j++){
+				if ($.Dom.select('.cell[data-coord="'+i+j+'"]')[0].innerHTML) {
+					valid_limited_movements = false;
+					break;
+				}
+			}
+			break;
+		case 'r':
+			valid_limited_movements = true;
+			if (startX == endX) {
+				for (var i=Math.min(startY,endY)+1; i<Math.max(startY,endY); i++) {
+					if ($.Dom.select('.cell[data-coord="'+startX+i+'"]')[0].innerHTML) {
+						valid_limited_movements = false;
+						break;
+					}
+				}
+			}
+			else if(startY == endY){
+				for (var i=Math.min(startX,endX)+1; i<Math.max(startX,endX); i++) {
+					if ($.Dom.select('.cell[data-coord="'+startY+i+'"]')[0].innerHTML) {
+						valid_limited_movements = false;
+						break;
+					}
+				}
+			}
+			else {
+				valid_limited_movements = false;
+			}
+			break;
+		case 'p':
+			if (startX == endX) {
+				valid_limited_movements = $.Dom.select('.cell[data-coord="'+startX+(startY+1)+'"]')[0].innerHTML == '';
+				if(endY == startY + 2) {
+					valid_limited_movements = valid_limited_movements && $.Dom.select('.cell[data-coord="'+startX+(startY+2)+'"]')[0].innerHTML == '';
+				}
+			}
+			else {
+				var endCell = $.Dom.select('.cell[data-coord="'+end+'"]')[0];
+				valid_limited_movements = (endCell.innerHTML == '' && startY == 4) || (endCell.innerHTML != '' && this._translation[endCell.innerHTML][0] == 'b');
+			}
+			break;
+		case 'h':
+		case 'k':
+			valid_limited_movements = true;
+			break;
+	}
+	if (!valid_limited_movements) {
+		return false;
+	}
+	
+	// Uncover white king
+	// TODO: considerare la posizione finale del pezzo mosso. Ci possono essere tanti casi, il pezzo e' solo mosso, il pezzo mangia (magari en-passant), ...
+	var valid_uncover_king = false;
+	var whiteKingX;
+	var whiteKingY;
+	$.Each($.Dom.select('.cell'), function(cell){
+		if (cell.innerHTML == '♔') {
+			whiteKingX = cell.getAttribute('data-coord')[0];
+			whiteKingY = cell.getAttribute('data-coord')[1];
+			return false;
+		}
+		return true;
+	});
+	for (var i=parseInt(whiteKingX)+1; i<8; i++) {
+		iCell = $.Dom.select('.cell[data-coord="'+i+whiteKingY+'"]')[0];
+		if (iCell.innerHTML == '♛' || iCell.innerHTML == '♜') {
+			if (endX == i && endY == j) {
+				valid_uncover_king = true;
+			}
+			else {
+				valid_uncover_king = false;
+			}
+			break;
+		}
+		else if (iCell.innerHTML == '') {}
+		else if(i!=whiteKingX || j!=whiteKingY) {
+			valid_uncover_king = true;
+			break;
+		}
+	}
+	if (valid_uncover_king) {
+		for (var i=parseInt(whiteKingX)-1; i>=0; i--) {
+			iCell = $.Dom.select('.cell[data-coord="'+i+whiteKingY+'"]')[0];
+			if (iCell.innerHTML == '♛' || iCell.innerHTML == '♜') {
+				if (endX == i && endY == j) {
+					valid_uncover_king = true;
+				}
+				else {
+					valid_uncover_king = false;
+				}
+				break;
+			}
+			else if (iCell.innerHTML == '') {}
+			else if(i!=whiteKingX || j!=whiteKingY) {
+				valid_uncover_king = true;
+				break;
+			}
+		}
+	}
+	if (valid_uncover_king) {
+		for (var j=parseInt(whiteKingY)+1; j<8; j++) {
+			jCell = $.Dom.select('.cell[data-coord="'+whiteKingX+j+'"]')[0];
+			if (jCell.innerHTML == '♛' || jCell.innerHTML == '♜') {
+				if (endX == i && endY == j) {
+					valid_uncover_king = true;
+				}
+				else {
+					valid_uncover_king = false;
+				}
+				break;
+			}
+			else if (jCell.innerHTML == '') {}
+			else if(i!=whiteKingX || j!=whiteKingY) {
+				valid_uncover_king = true;
+				break;
+			}
+		}
+	}
+	if (valid_uncover_king) {
+		for (var j=parseInt(whiteKingY)-1; j>=0; j--) {
+			jCell = $.Dom.select('.cell[data-coord="'+whiteKingX+j+'"]')[0];
+			if (jCell.innerHTML == '♛' || jCell.innerHTML == '♜') {
+				if (endX == i && endY == j) {
+					valid_uncover_king = true;
+				}
+				else {
+					valid_uncover_king = false;
+				}
+				break;
+			}
+			else if (jCell.innerHTML == '') {}
+			else if(i!=whiteKingX || j!=whiteKingY) {
+				valid_uncover_king = true;
+				break;
+			}
+		}
+	}
+	if (valid_uncover_king) {
+		for (var i=parseInt(whiteKingX)+1,j=parseInt(whiteKingY)+1; i<8&&j<8; i++,j++) {
+			ijCell = $.Dom.select('.cell[data-coord="'+i+j+'"]')[0];
+			if (ijCell.innerHTML == '♛' || ijCell.innerHTML == '♝') {
+				if (endX == i && endY == j) {
+					valid_uncover_king = true;
+				}
+				else {
+					valid_uncover_king = false;
+				}
+				break;
+			}
+			else if (ijCell.innerHTML == '' || ((i==startX) && (j==startY))) {}
+			else {
+				valid_uncover_king = true;
+				break;
+			}
+		}
+	}
+	if (valid_uncover_king) {
+		for (var i=parseInt(whiteKingX)-1,j=parseInt(whiteKingY)+1; i>=0&&j<8; i--,j++) {
+			ijCell = $.Dom.select('.cell[data-coord="'+i+j+'"]')[0];
+			if (ijCell.innerHTML == '♛' || ijCell.innerHTML == '♝') {
+				if (endX == i && endY == j) {
+					valid_uncover_king = true;
+				}
+				else {
+					valid_uncover_king = false;
+				}
+				break;
+			}
+			else if (ijCell.innerHTML == '') {}
+			else if(i!=whiteKingX || j!=whiteKingY) {
+				valid_uncover_king = true;
+				break;
+			}
+		}
+	}
+	if (valid_uncover_king) {
+		for (var i=parseInt(whiteKingX)+1,j=parseInt(whiteKingY)-1; i<8&&j>=0; i++,j--) {
+			ijCell = $.Dom.select('.cell[data-coord="'+i+j+'"]')[0];
+			if (ijCell.innerHTML == '♛' || ijCell.innerHTML == '♝') {
+				if (endX == i && endY == j) {
+					valid_uncover_king = true;
+				}
+				else {
+					valid_uncover_king = false;
+				}
+				break;
+			}
+			else if (ijCell.innerHTML == '') {}
+			else if(i!=whiteKingX || j!=whiteKingY) {
+				valid_uncover_king = true;
+				break;
+			}
+		}
+	}
+	if (valid_uncover_king) {
+		for (var i=parseInt(whiteKingX)-1,j=parseInt(whiteKingY)-1; i>=0&&j>=0; i--,j--) {
+			ijCell = $.Dom.select('.cell[data-coord="'+i+j+'"]')[0];
+			if (ijCell.innerHTML == '♛' || ijCell.innerHTML == '♝') {
+				if (endX == i && endY == j) {
+					valid_uncover_king = true;
+				}
+				else {
+					valid_uncover_king = false;
+				}
+				break;
+			}
+			else if (ijCell.innerHTML == '') {}
+			else if(i!=whiteKingX || j!=whiteKingY) {
+				valid_uncover_king = true;
+				break;
+			}
+		}
+	}
+	if (!valid_uncover_king) {
+		return false;
+	}
+	
+	// Castling
+	// TODO: check for validity (ie. king is not in check, middle houses are not controlled)
+	var valid_castling = false;
+	if (piece == 'k' && startY == 0 && endY == 0 && startX == 4 && (endX == 2 || endX == 6)) {
+		valid_castling = ((endX == 2 && this._diagram.wsc) || (endX == 6 && this._diagram.wlc));
+	}
+	else {
+		valid_castling = true;
+	}
+	if (!valid_castling) {
+		return false;
+	}
+	
+	// En-passant
+	var valid_enpassant = true;
+	if (piece == 'p' && startY == 4 && endX != startX) {
+		var endCell = $.Dom.select('.cell[data-coord="'+end+'"]')[0];
+		// white wants to eat a piece
+		if (endCell.innerHTML == '') {
+			valid_enpassant = this._diagram.allowed.enp == (parseInt(endY)-1) +''+ endX;
+		}
+	}
+	if (!valid_enpassant) {
+		return false;
+	}
+	
+	// Finally!!!
+	return true;
 }
 
 WhiteWins.prototype.writeStatus = function(message, add_class, remove_class) {
