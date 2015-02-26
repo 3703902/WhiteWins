@@ -1,3 +1,5 @@
+var whiteWins;
+
 $.Dom.addEvent(window, 'load', function(){
 	
 	// Set browser language
@@ -24,55 +26,85 @@ $.Dom.addEvent(window, 'load', function(){
 	});
 	
 	// Load the diagrams
-	var diagrams = null;
 	$.Ajax.get('diagrams/diagrams.json', {}, {
 		'onSuccess': function(t) {
-			diagrams = $.Json.decode(t);
-			$.Dom.fireEvent(window, 'diagrams-loaded');
+			whiteWins = new WhiteWins($.Json.decode(t), $.Storage.get('solved') || []);
+			whiteWins.clearBoard().load(whiteWins.getLastOrFirstUnsolved()).applyDiagram().applyAllowedRules();
+			
+			var info = whiteWins.getInfo();
+			// Create diagrams list
+			whiteWins.each(function(diagram, key){
+				$.Dom.inject($.Dom.element('li', {
+						'data-key': key,
+						'class': 'pointer '+(info.solved[key] ? 'solved' : '')
+					}, 'diagram '+key, {
+					'click': function(event) {
+						whiteWins.writeStatus('', '', ['status-ok', 'status-ko']).clearBoard().load(event.target.getAttribute('data-key')).applyDiagram().applyAllowedRules();
+						location.href = '#';
+					}
+				}), 'index-sidebar-diagramslist');
+			});
 		}
 	});
 	
-	var whiteWins;
-	// Load the game
-	$.Dom.addEvent(window, 'diagrams-loaded', function(){
-		whiteWins = new WhiteWins($.Dom.id('board'), diagrams, $.Dom.id('status'));
-		whiteWins.clearBoard().loadDiagram(whiteWins.getLastOrFirstUnsolved()).applyDiagram().applyAllowedMoves();
-		
-		// Create diagrams list
-		whiteWins.each(function(diagram, key){
-			$.Dom.inject($.Dom.element('li', {
-					'data-key': key,
-					'class': 'pointer '+(whiteWins._solved[key]?'solved':'')
-				}, 'diagram '+key, {
-				'click': function(event) {
-					whiteWins.writeStatus('', '', ['status-ok', 'status-ko']).clearBoard().loadDiagram(event.target.getAttribute('data-key')).applyDiagram().applyAllowedMoves();
-					location.href = '#';
+	(function(){
+		var start = null;
+		$.Each($.Dom.select('#board .cell'), function(cell){
+			$.Dom.addEvent(cell, 'click', function(event){
+				if (!start) {
+					whiteWins.removeHighlights();
+					if (event.target.innerHTML == '') {
+						return;
+					}
+					start = event.target;
+					whiteWins.highlightCell(event.target, 'player start');
 				}
-			}), 'index-sidebar-diagramslist');
+				else {
+					var startCoord = start.getAttribute('data-coord');
+					var endCoord = event.target.getAttribute('data-coord');
+					if (startCoord == endCoord) {
+						start = null;
+						whiteWins.removeHighlights();
+						return;
+					}
+					if (whiteWins.valid(start.innerHTML, startCoord, endCoord)) {
+						whiteWins.highlightCell(event.target, 'player end');
+						whiteWins.check(startCoord, endCoord);
+						start = null;
+					}
+				}
+			});
 		});
-		
-		$.Dom.fireEvent(window, 'game-loaded');
-	});
-	
-	$.Dom.addEvent(window, 'solved-diagram', function(event){
-		$.Dom.addClass($.Dom.select('section[data-type="sidebar"] > nav > ul > li[data-key="'+event.detail.key+'"]')[0], 'solved');
-	});
+		$.Dom.addEvent(window, 'whitewins-load', function(event){
+			start = null;
+			whiteWins.removeHighlights();
+		});
+		$.Dom.addEvent('index', 'click', function(event){
+			if (event.target.id == 'index') {
+				start = null;
+				whiteWins.removeHighlights();
+			}
+		});
+	})();
 	
 	$.Dom.addEvent('index-nextdiagram', 'click', function(){
 		// TODO: search the next unsolved diagram
 		whiteWins.writeStatus('', '', ['status-ok', 'status-ko']);
-		whiteWins.clearBoard().loadDiagram(whiteWins.next()).applyDiagram().applyAllowedMoves();
+		whiteWins.clearBoard().load(whiteWins.next()).applyDiagram().applyAllowedMoves();
 	});
 	
 	// Set diagrams number
 	$.Dom.addEvent(window, 'diagrams-loaded', function(){
-		$.Dom.id('rules-diagramsnumber').innerHTML = whiteWins._diagrams.length;
-		$.Dom.id('index-sidebar-diagramsnumber').innerHTML = whiteWins._diagrams.length;
+		var info = whiteWins.getInfo();
+		$.Dom.id('rules-diagramsnumber').innerHTML = info.diagramsNumber;
+		$.Dom.id('index-sidebar-diagramsnumber').innerHTML = info.diagramsNumber;
 	});
 	
 	// Hide/show solved diagrams names
+	$.Dom.id('index-sidebar-showsolved').checked = $.Storage.get('show-solved');
 	$.Dom.addEvent('index-sidebar-showsolved', 'change', function(event){
 		$.Dom.id('index-sidebar-diagramslist').setAttribute('data-showsolved', event.target.checked);
+		$.Storage.set('show-solved', event.target.checked);
 	});
 	$.Dom.fireEvent('index-sidebar-showsolved', 'change'); // On page load :D
 	
@@ -86,9 +118,127 @@ $.Dom.addEvent(window, 'load', function(){
 		$.Dom.id('info-reference').innerHTML = info.reference;
 		$.Dom.id('info-comment').innerHTML = info.comment;
 	});
-	
-	// Set ready attribute
-	$.Dom.addEvent(window, 'game-loaded', function(){
-		document.body.setAttribute('data-ready', 'true');
-	});
 });
+
+// Set ready attribute
+$.Dom.addEvent(window, 'whitewins-initialized', function(){
+	document.body.setAttribute('data-ready', 'true');
+});
+
+$.Dom.addEvent(window, 'whitewins-load', function(event){
+	$.Storage.set('last-opened', event.detail.index);
+});
+
+$.Dom.addEvent(window, 'whitewins-valid', function(event){
+	
+});
+
+$.Dom.addEvent(window, 'whitewins-setsolved', function(event){
+	var info = whiteWins.getInfo();
+	$.Storage.set('solved', info.solved);
+	$.Dom.addClass($.Dom.select('#index-sidebar-diagramslist li[data-key="'+event.detail.index+'"]')[0], 'solved');
+});
+
+$.Dom.addEvent(window, 'whitewins-next', function(event){
+	
+});
+
+$.Dom.addEvent(window, 'whitewins-check', function(event){
+	if (event.detail.correct) {
+		whiteWins.setSolved(event.detail.index);
+		whiteWins.writeStatus('Correct answer', 'status-ok', 'status-ko');
+	}
+	else {
+		whiteWins.writeStatus('Wrong answer', 'status-ko', 'status-ok');
+	}
+});
+
+// WhiteWins extension
+WhiteWins.prototype.writeStatus = function(message, add_class, remove_class) {
+	var p = $.Dom.children('status', 'p')[0];
+	if (message) {
+		p.innerHTML = ''+message+'';
+		$.Dom.removeClass('status', 'hidden');
+	}
+	else {
+		$.Dom.addClass('status', 'hidden');
+	}
+	var self = this;
+	$.Each(add_class, function(a_class){
+		$.Dom.addClass('status', a_class);
+	});
+	$.Each(remove_class, function(a_class){
+		$.Dom.removeClass('status', a_class);
+	});
+	return this;
+};
+
+WhiteWins.prototype.applyDiagram = function () {
+	var self = this;
+	$.Each(this._diagram.position, function(position){
+		var pos = position.substring(0, 2);
+		var piece = position.substring(2, 4);
+		var cell = $.Dom.select('#board .cell[data-coord="'+pos+'"]')[0];
+		cell.innerHTML = self._translation[piece];
+	});
+	return this;
+};
+
+WhiteWins.prototype.clearBoard = function() {
+	$.Each($.Dom.children($.Dom.id('board'), 'div', 'cell'), function(cell){
+		cell.innerHTML = '';
+		whiteWins.removeHighlight(cell);
+	});
+	return this;
+};
+
+WhiteWins.prototype.getLastOrFirstUnsolved = function() {
+	var index = parseInt($.Storage.get('last-opened'));
+	if (index || index === 0) {
+		return index;
+	}
+	else {
+		return this.next();
+	}
+};
+
+WhiteWins.prototype.applyAllowedRules = function () {
+	$.Dom.id('index-allowed-moves').innerHTML = '';
+	if (this._diagram.allowed.wlc) {
+		$.Dom.inject($.Dom.element('li', {}, '<span>White </span><code class="white">O-O-O</code>'), 'index-allowed-moves');
+	}
+	if (this._diagram.allowed.wsc) {
+		$.Dom.inject($.Dom.element('li', {}, '<span>White </span><code class="white">O-O</code>'), 'index-allowed-moves');
+	}
+	if (this._diagram.allowed.blc) {
+		$.Dom.inject($.Dom.element('li', {}, '<span>Black </span><code class="black">O-O-O</code>'), 'index-allowed-moves');
+	}
+	if (this._diagram.allowed.bsc) {
+		$.Dom.inject($.Dom.element('li', {}, '<span>Black </span><code class="black">O-O</code>'), 'index-allowed-moves');
+	}
+	if (this._diagram.allowed.enp) {
+		$.Dom.inject($.Dom.element('li', {}, '<span>En-passant </span><code class="enpassant">'+this.convert(this._diagram.allowed.enp)+'</code>'), 'index-allowed-moves');
+	}
+	return this;
+};
+
+WhiteWins.prototype.highlightCell = function (cell, classes) {
+	// Classes:
+	// 	highlight, player, opponent, start, end
+	$.Dom.addClass(cell, 'highlight');
+	$.Dom.addClass(cell, classes);
+};
+
+WhiteWins.prototype.removeHighlight = function (cell) {
+	$.Dom.removeClass(cell, 'highlight');
+	$.Dom.removeClass(cell, 'player');
+	$.Dom.removeClass(cell, 'opponent');
+	$.Dom.removeClass(cell, 'start');
+	$.Dom.removeClass(cell, 'end');
+};
+WhiteWins.prototype.removeHighlights = function(){
+	var self = this;
+	$.Each($.Dom.select('#board .highlight'), function(cell){
+		self.removeHighlight(cell);
+	});
+};
