@@ -41,50 +41,6 @@ var WhiteWins = function(diagrams, solved) {
 	this._fireEvent('initialized');
 };
 
-WhiteWins.prototype.valid = function (piece, start, end) {
-	var pieceType = this._translation[piece][1];
-	var pieceColor = this._translation[piece][0];
-	var startX = parseInt(start[0]);
-	var startY = parseInt(start[1]);
-	var endX = parseInt(end[0]);
-	var endY = parseInt(end[1]);
-	
-	var valid = true;
-	
-	// alert('['+startX+' '+startY+'] => ['+endX+' '+endY+']');
-	switch (pieceType) {
-		case 'k':
-			valid = (Math.abs(startX - endX) <= 1 && Math.abs(startY - endY) <= 1) ||
-				(startX == 4 && startY == 0 && ((endX == 2 && endY == 0) || (endX == 6 && endY == 0)));
-			break;
-		case 'q':
-			valid = (startX == endX || startY == endY) || (endY - endX == startY - startX) || (endY + endX ==  + startY + startX);
-			break;
-		case 'b':
-			valid = (endY - endX == startY - startX) || (endY + endX ==  + startY + startX);
-			break;
-		case 'h':
-			valid = (Math.abs(startX - endX) == 1 && Math.abs(startY - endY) == 2) || (Math.abs(startX - endX) == 2 && Math.abs(startY - endY) == 1);
-			break;
-		case 'r':
-			valid = startX == endX || startY == endY;
-			break;
-		case 'p':
-			valid = (endY - startY == 1 && Math.abs(startX - endX) <= 1) || (startY == 1 && endY == 3 && startX == endX);
-			break;
-		default:
-			valid = false;
-			break;
-	}
-	
-	this._fireEvent('valid', {
-		'valid': valid,
-		'index': this._diagramIndex
-	});
-	
-	return valid;
-};
-
 WhiteWins.prototype.next = function() {
 	var l = 0;
 	var index = (this._diagramIndex || 0);
@@ -131,8 +87,19 @@ WhiteWins.prototype.next = function() {
 
 WhiteWins.prototype.load = function(index){
 	index = parseInt(index);
+	if (index >= this._diagrams.length) {
+		index = 0;
+	}
 	this._diagramIndex = index;
 	this._diagram = this._diagrams[index];
+	this._digital = {};
+	var self = this;
+	$.Each(this._diagram.position, function(cell){
+		self._digital[cell[0]+cell[1]] = {
+			'piece': cell[3],
+			'color': cell[2]
+		};
+	});
 	this._fireEvent('load', {
 		'index': index,
 		'diagram': this._diagram
@@ -140,20 +107,37 @@ WhiteWins.prototype.load = function(index){
 	return this;
 };
 
-WhiteWins.prototype.check = function(start, end) {
+WhiteWins.prototype.check = function(start, end, promotion) {
 	var correct = false;
 	$.Each(this._diagram.solutions, function(solution){
 		if (start == solution.start && end == solution.end) {
-			correct = true;
+			if (promotion) {
+				if (promotion == solution.promotion) {
+					correct = true;
+				}
+				else {
+					correct = false;
+				}
+			}
+			else {
+				correct = true;
+			}
 		}
 		return !correct;
 	});
 	this._fireEvent('check', {
 		'correct': correct,
-		'index': this._diagramIndex
+		'index': this._diagramIndex,
+		'start': start,
+		'end': end,
+		'promotion': promotion
 	});
 	return correct;
 };
+
+WhiteWins.prototype.getSuggestion = function (key) {
+	return this._diagram.suggestions[key]? this._diagram.suggestions[key][Math.floor(Math.random(this._diagram.suggestions[key].length))] : null;
+}
 
 WhiteWins.prototype.each = function(callback){
 	for (var i in this._diagrams) {
