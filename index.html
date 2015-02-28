@@ -7,8 +7,11 @@
 		<meta name="author" content="Francesco Michienzi (mastro elfo)"/>
 		<meta name="application-name" content="WhiteWins"/>
 		<meta name="description" content=""/>
-		<meta name="keywords" content=""/>
+		<meta name="keywords" content="chess,checkmate,white,black,queen,king,rook,bishop,horse,pawn,board,diagram,play"/>
 		
+		<title>White Wins</title>
+		
+		<link rel="stylesheet" href="css/resources/buttons.css"/>
 		<link rel="stylesheet" href="css/resources/drawer.css"/>
 		<link rel="stylesheet" href="css/resources/headers.css"/>
 		<link rel="stylesheet" href="css/resources/layout.css"/>
@@ -24,11 +27,13 @@
 		<script type="text/javascript" src="js/l10n.js" defer="defer"></script>
 		<script type="text/javascript" src="js/Page.js" defer="defer"></script>
 		<script type="text/javascript" src="js/white_wins.js" defer="defer"></script>
+		<script type="text/javascript" src="js/white_wins.valid.js" defer="defer"></script>
 		<script type="text/javascript" src="js/main.js" defer="defer"></script>
 		
 		<link rel="shortcut icon" href="favicon.ico"/>
 	</head>
 	<body role="application">
+		<div id="tutorial-highlight"></div>
 		<section data-type="sidebar" class="vbox scroll">
 			<header>
 				<h1>Choose a diagram <em>(<span id="index-sidebar-diagramsnumber">0</span>)</em></h1>
@@ -58,13 +63,19 @@
 				</menu>
 				
 				<h1><span>White wins</span><span id="index-2moves-inline">&nbsp;in 2 moves</span></h1>
-				<h2 id="index-2moves-subtitle">in 2 moves</h2>
+				<h2 id="index-2moves-subtitle">in&nbsp;<span id="index-movestocheckmate">2</span>&nbsp;moves</h2>
 			</header>
 			<section role="status" id="status" class="hidden">
 				<p></p>
 				<p id="index-nextdiagram">next</p>
 			</section>
 			<section class="fit scroll">
+				<ul id="index-piecepromotion" class="hidden">
+					<li>&#9813;</li>
+					<li>&#9814;</li>
+					<li>&#9816;</li>
+					<li>&#9815;</li>
+				</ul><div></div>
 				<ul id="index-allowed-moves"></ul>
 				<div id="board">
 					<div class="row">
@@ -205,13 +216,6 @@
 					
 					<p>The following is a list of pieces:</p>
 					<table id="pieces-table">
-						<!--<thead>
-							<tr>
-								<th>Name</th>
-								<th>White</th>
-								<th>Black</th>
-							</tr>
-						</thead>-->
 						<tbody>
 							<tr>
 								<td>King</td>
@@ -245,12 +249,16 @@
 							</tr>
 						</tbody>
 					</table>
-					
-					<p>There are <span id="rules-diagramsnumber">0</span> diagrams.</p>
 				</article>
 				<article>
 					<header>Bugs and issues</header>
 					<p>Please, tell us if you find a bug: <a href="https://github.com/mastro-elfo/WhiteWins/issues" title="Bug and issues on github">Github bug and issues</a>.</p>
+				</article>
+				<article>
+					<header>Reset data</header>
+					<p>
+						<button type="button" id="rules-resetalldata" class="danger pointer">Resed all data</button>
+					</p>
 				</article>
 			</section>
 		</section>

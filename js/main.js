@@ -44,6 +44,8 @@ $.Dom.addEvent(window, 'load', function(){
 					}
 				}), 'index-sidebar-diagramslist');
 			});
+			
+			$.Dom.id('index-sidebar-diagramsnumber').innerHTML = info.diagramsNumber;
 		}
 	});
 	
@@ -54,6 +56,9 @@ $.Dom.addEvent(window, 'load', function(){
 				if (!start) {
 					whiteWins.removeHighlights();
 					if (event.target.innerHTML == '') {
+						return;
+					}
+					if (whiteWins._translation[event.target.innerHTML][0] == 'b') {
 						return;
 					}
 					start = event.target;
@@ -67,10 +72,21 @@ $.Dom.addEvent(window, 'load', function(){
 						whiteWins.removeHighlights();
 						return;
 					}
+					if (event.target.innerHTML && whiteWins._translation[event.target.innerHTML][0] == 'w') {
+						return;
+					}
 					if (whiteWins.valid(start.innerHTML, startCoord, endCoord)) {
-						whiteWins.highlightCell(event.target, 'player end');
-						whiteWins.check(startCoord, endCoord);
-						start = null;
+						if (!event.detail.piece && start.innerHTML == '♙' && endCoord[1] == 7) {
+							// ask piece promotion
+							$.Dom.removeClass('index-piecepromotion', 'hidden');
+							$.Dom.id('index-piecepromotion').setAttribute('data-cell', endCoord);
+						}
+						else {
+							// GOTO: piece-promotion-selected
+							whiteWins.highlightCell(event.target, 'player end');
+							whiteWins.check(startCoord, endCoord, event.detail.piece);
+							start = null;
+						}
 					}
 				}
 			});
@@ -87,17 +103,26 @@ $.Dom.addEvent(window, 'load', function(){
 		});
 	})();
 	
-	$.Dom.addEvent('index-nextdiagram', 'click', function(){
-		// TODO: search the next unsolved diagram
-		whiteWins.writeStatus('', '', ['status-ok', 'status-ko']);
-		whiteWins.clearBoard().load(whiteWins.next()).applyDiagram().applyAllowedMoves();
+	// GOTO: piece-promotion-selected
+	$.Each($.Dom.select('#index-piecepromotion li'), function(li){
+		$.Dom.addEvent(li, 'click', function(event) {
+			$.Dom.addClass('index-piecepromotion', 'hidden');
+			$.Dom.fireEvent($.Dom.select('.cell[data-coord="'+$.Dom.id('index-piecepromotion').getAttribute('data-cell')+'"]')[0], 'click', {
+				'detail': {
+					'piece': event.target.innerHTML
+				}
+			});
+		});
 	});
 	
-	// Set diagrams number
-	$.Dom.addEvent(window, 'diagrams-loaded', function(){
-		var info = whiteWins.getInfo();
-		$.Dom.id('rules-diagramsnumber').innerHTML = info.diagramsNumber;
-		$.Dom.id('index-sidebar-diagramsnumber').innerHTML = info.diagramsNumber;
+	$.Dom.addEvent('index-nextdiagram', 'click', function(){
+		whiteWins.writeStatus('', '', ['status-ok', 'status-ko']);
+		whiteWins.clearBoard().load(whiteWins.next()).applyDiagram().applyAllowedRules();
+	});
+	$.Dom.addEvent('status', 'click', function(event){
+		if($.Dom.hasClass('status', 'status-ko')) {
+			$.Dom.addClass('status', 'hidden');
+		}
 	});
 	
 	// Hide/show solved diagrams names
@@ -118,6 +143,16 @@ $.Dom.addEvent(window, 'load', function(){
 		$.Dom.id('info-reference').innerHTML = info.reference;
 		$.Dom.id('info-comment').innerHTML = info.comment;
 	});
+	
+	$.Dom.addEvent('rules-resetalldata', 'click', function(){
+		if (confirm('Do you really want to reset all diagrams to unsolved?')) {
+			$.Storage.set('solved', {});
+			$.Each($.Dom.select('#index-sidebar-diagramslist .solved'), function(li){
+				$.Dom.removeClass(li, 'solved');
+			});
+			whiteWins._solved = {};
+		}
+	});
 });
 
 // Set ready attribute
@@ -127,6 +162,7 @@ $.Dom.addEvent(window, 'whitewins-initialized', function(){
 
 $.Dom.addEvent(window, 'whitewins-load', function(event){
 	$.Storage.set('last-opened', event.detail.index);
+	$.Dom.id('index-movestocheckmate').innerHTML = 2;
 });
 
 $.Dom.addEvent(window, 'whitewins-valid', function(event){
@@ -150,6 +186,12 @@ $.Dom.addEvent(window, 'whitewins-check', function(event){
 	}
 	else {
 		whiteWins.writeStatus('Wrong answer', 'status-ko', 'status-ok');
+		// Highlights
+		var suggestion = whiteWins.getSuggestion(event.detail.start+event.detail.end+(event.detail.promotion?event.detail.promotion:''));
+		if (suggestion) {
+			whiteWins.highlightCell($.Dom.select('.cell[data-coord="'+suggestion.start+'"]')[0], 'opponent start');
+			whiteWins.highlightCell($.Dom.select('.cell[data-coord="'+suggestion.end+'"]')[0], 'opponent end');
+		}
 	}
 });
 
@@ -164,12 +206,15 @@ WhiteWins.prototype.writeStatus = function(message, add_class, remove_class) {
 		$.Dom.addClass('status', 'hidden');
 	}
 	var self = this;
+	
+	setTimeout (function(){
 	$.Each(add_class, function(a_class){
 		$.Dom.addClass('status', a_class);
 	});
 	$.Each(remove_class, function(a_class){
 		$.Dom.removeClass('status', a_class);
 	});
+	}, message?0:250);
 	return this;
 };
 

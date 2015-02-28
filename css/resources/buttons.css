@@ -1,0 +1,171 @@
+/* ----------------------------------
+ * Buttons
+ * ---------------------------------- */
+
+.button::-moz-focus-inner,
+.bb-button::-moz-focus-inner,
+button::-moz-focus-inner {
+  border: none;
+  outline: none;
+}
+
+button,
+.bb-button,
+.button {
+  font-family: sans-serif;
+  font-style: italic;
+  width: 100%;
+  height: 4rem;
+  margin: 0 0 1rem;
+  padding: 0 1.2rem;
+  -moz-box-sizing: border-box;
+  display: inline-block;
+  vertical-align: middle;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  background: #d8d8d8;
+  border: none;
+  border-radius: 2rem;
+  font-weight: normal;
+  font-size: 1.6rem;
+  line-height: 4rem;
+  color: #333;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+}
+
+/* Danger */
+button.danger,
+.danger.bb-button {
+  background-color: #e51e1e;
+  color: #fff;
+}
+
+/* Pressed */
+button:active,
+.bb-button:active,
+.button:active {
+  background-color: #b2f2ff;
+  color: #fff;
+}
+
+/* ----------------------------------
+ * Buttons inside lists
+ * ---------------------------------- */
+
+li button,
+li .bb-button,
+li .button {
+  position: relative;
+  text-align: left;
+  border: 0.1rem solid #c7c7c7;
+  background: rgba(0,0,0,0.05);
+  margin: 0 0 1rem;
+  overflow: hidden;
+  border-radius: 0;
+  display: flex;
+  height: auto;
+  min-height: 4rem;
+  text-overflow: initial;
+  white-space: normal;
+  line-height: 2rem;
+  padding: 1rem 1.2rem;
+}
+
+/* Press */
+li .bb-button:active:after,
+li .button:active:after,
+li button:active:after {
+  opacity: 0;
+}
+
+/* Disabled */
+li button:disabled,
+li .bb-button[aria-disabled="true"],
+li .button[aria-disabled="true"] {
+  opacity: 0.5;
+}
+
+/* remove dotted outline */
+select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #333;
+}
+
+/******************************************************************************
+ * Right-To-Left layout
+ */
+
+html[dir="rtl"] li button,
+html[dir="rtl"] li .bb-button,
+html[dir="rtl"] li .button {
+  text-align: right;
+}
+
+html[dir="rtl"] li button.icon,
+html[dir="rtl"] li .bb-button.icon,
+html[dir="rtl"] li .button.icon {
+  padding: 1rem 1.3rem 1rem 4rem;
+}
+
+html[dir="rtl"] button[data-icon]:before,
+html[dir="rtl"] .bb-button[data-icon]:before,
+html[dir="rtl"] .button[data-icon]:before {
+  right: unset;
+  left: 1.5rem;
+  transform: scale(-1, 1);
+}
+
+html[dir="rtl"] li button[data-icon]:before,
+html[dir="rtl"] li .bb-button[data-icon]:before,
+html[dir="rtl"] li .button[data-icon]:before {
+  left: 1rem;
+}
+
+html[dir="rtl"] li button.icon:before,
+html[dir="rtl"] li .bb-button.icon:before,
+html[dir="rtl"] li .button.icon:before {
+  right: auto;
+  left: 0.5rem;
+}
+
+html[dir="rtl"] li button.icon-dialog,
+html[dir="rtl"] li .bb-button.icon-dialog,
+html[dir="rtl"] li .button.icon-dialog {
+  padding-left: 3rem;
+}
+
+html[dir="rtl"] li button.icon-view:before,
+html[dir="rtl"] li .bb-button.icon-view:before,
+html[dir="rtl"] li .button.icon-view:before {
+  left: 0;
+  right: auto;
+  transform: rotate(180deg);
+}
+
+html[dir="rtl"] li button.icon-dialog:before,
+html[dir="rtl"] li .bb-button.icon-dialog:before,
+html[dir="rtl"] li .button.icon-dialog:before {
+  left: 0.8rem;
+  right: auto;
+  transform: rotate(135deg);
+}
+
+html[dir="rtl"] select {
+  padding: 0 1.2rem 0 0; /* .3rem right space because of italic */
+  text-align: right;
+}
+
+/* Hides dropdown arrow until bug #649849 is fixed */
+html[dir="rtl"] .bb-button.icon-dialog select,
+html[dir="rtl"] .button.icon-dialog select,
+html[dir="rtl"] .bb-button[data-icon] select,
+html[dir="rtl"] .button[data-icon] select {
+  left: auto;
+  right: 0.3rem; /* .3rem space because of italic */
+  text-indent: 1rem;
+  padding: 0 0 0 4rem;
+}
+

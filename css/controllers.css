@@ -1,3 +1,8 @@
+#status *,
+#status{
+	cursor: pointer;
+}
+
 .status-ok #index-nextdiagram {
 	color: green;
   position: absolute;
@@ -10,10 +15,22 @@
   box-sizing: border-box;
   outline: 1px solid gold;
   text-align: right;
-  cursor: pointer;
 }
 
 .status-ko #index-nextdiagram {
 	display: none;
 }
+
+.status-ko:after {
+	content: "";
+  position: absolute;
+      top: 0;
+      right: 1em;
+      width: 2.5em;
+      height: 100%;
+      background: url(resources/headers/images/icons/back.png) center no-repeat;
+      transform: rotate(270deg);
+}
+
+
 
