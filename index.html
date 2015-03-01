@@ -34,20 +34,20 @@
 	</head>
 	<body role="application">
 		<div id="tutorial-highlight"></div>
-		<section data-type="sidebar" class="vbox scroll">
+		<section data-type="sidebar" class="vbox">
 			<header>
 				<h1>Choose a diagram <em>(<span id="index-sidebar-diagramsnumber">0</span>)</em></h1>
 			</header>
+			<ul class="gaia-list">
+				<li>
+					<label id="index-sidebar-showsolvedlabel" class="pack-switch pointer">
+						Show solved
+						<input type="checkbox" id="index-sidebar-showsolved"/>
+						<span></span>
+					</label>
+				</li>
+			</ul>
 			<nav class="gaia-list scroll">
-				<ul>
-					<li>
-						<label class="pack-switch">
-							Show solved
-							<input type="checkbox" id="index-sidebar-showsolved"/>
-							<span></span>
-						</label>
-					</li>
-				</ul>
 				<ul id="index-sidebar-diagramslist"></ul>
 			</nav>
 		</section>
