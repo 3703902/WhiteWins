@@ -37,7 +37,7 @@ $.Dom.addEvent(window, 'load', function(){
 				$.Dom.inject($.Dom.element('li', {
 						'data-key': key,
 						'class': 'pointer '+(info.solved[key] ? 'solved' : '')
-					}, 'diagram '+key, {
+					}, 'diagram '+(parseInt(key)+1), {
 					'click': function(event) {
 						whiteWins.writeStatus('', '', ['status-ok', 'status-ko']).clearBoard().load(event.target.getAttribute('data-key')).applyDiagram().applyAllowedRules();
 						location.href = '#';

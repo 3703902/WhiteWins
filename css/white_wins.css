@@ -88,6 +88,16 @@ section[role="region"]:target > a.hide-sidebar {
   z-index: 10;
 }
 
+#index-sidebar-showsolvedlabel {
+	color: white;
+}
+#index-sidebar-showsolvedlabel:active {
+	background: #00ABCC;
+}
+[data-ready="true"] #index-sidebar-showsolvedlabel {
+	transition: background 0.25s ease;
+}
+
 #index-2moves-inline,
 #index-2moves-subtitle {
 	transition: all 0.4s ease;
@@ -115,4 +125,6 @@ section[role="region"]:target > a.hide-sidebar {
 #index-goto-info:hover {
   background-color: rgba(0,0,0,0.075);
 }
+
+
 

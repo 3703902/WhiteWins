@@ -5,7 +5,6 @@ section[data-type="sidebar"] > nav > ul > li > label {
 
 section[data-type="sidebar"] > nav > ul > li.solved {
 	color: rgba(255, 255, 255, 0.5);
-  transition: all ease 0.25s;
 }
 
 section[data-type="sidebar"] > nav > ul:not([data-showsolved="true"]) > li.solved {
@@ -16,5 +15,9 @@ section[data-type="sidebar"] > nav > ul:not([data-showsolved="true"]) > li.solve
 }
 section[data-type="sidebar"] > nav > ul:not([data-showsolved="true"]) > li.solved:after {
 	border: none;
+}
+
+[data-ready="true"] section[data-type="sidebar"] > nav > ul > li.solved {
+	transition: all ease 0.25s;
 }
 
