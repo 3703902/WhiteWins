@@ -1,3 +1,6 @@
+section[data-type="sidebar"] > nav > ul {
+	padding-bottom: 110px
+}
 
 section[data-type="sidebar"] > nav > ul > li > label {
 	cursor: pointer;
@@ -30,3 +33,4 @@ section[data-type="sidebar"] > nav > ul:not([data-showsolved="true"]) > li.solve
 [data-ready="true"] #index-sidebar-showsolvedlabel {
 	transition: background 0.25s ease;
 }
+
