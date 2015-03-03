@@ -37,7 +37,7 @@ $.Dom.addEvent(window, 'load', function(){
 				$.Dom.inject($.Dom.element('li', {
 						'data-key': key,
 						'class': 'pointer '+(info.solved[key] ? 'solved' : '')
-					}, 'diagram '+(parseInt(key)+1), {
+					}, $.L10n.translate('diagram', '', 'Diagram')+' '+(parseInt(key)+1), {
 					'click': function(event) {
 						whiteWins.writeStatus('', '', ['status-ok', 'status-ko']).clearBoard().load(event.target.getAttribute('data-key')).applyDiagram().applyAllowedRules();
 						location.href = '#';
@@ -145,7 +145,7 @@ $.Dom.addEvent(window, 'load', function(){
 	});
 	
 	$.Dom.addEvent('rules-resetalldata', 'click', function(){
-		if (confirm('Do you really want to reset all diagrams to unsolved?')) {
+		if (confirm($.L10n.translate('confirm-reset', '', 'Do you really want to reset all diagrams to unsolved?'))) {
 			$.Storage.set('solved', {});
 			$.Each($.Dom.select('#index-sidebar-diagramslist .solved'), function(li){
 				$.Dom.removeClass(li, 'solved');
@@ -153,6 +153,11 @@ $.Dom.addEvent(window, 'load', function(){
 			whiteWins._solved = {};
 		}
 	});
+	
+	$.Dom.addEvent(window, 'resize', function(){
+		$.Dom.style('board', 'font-size', Math.max(1, (Math.min(window.innerHeight -50, window.innerWidth) /100 -1)) +'rem');
+	});
+	$.Dom.fireEvent(window, 'resize');
 });
 
 // Set ready attribute
@@ -162,12 +167,9 @@ $.Dom.addEvent(window, 'whitewins-initialized', function(){
 
 $.Dom.addEvent(window, 'whitewins-load', function(event){
 	$.Storage.set('last-opened', event.detail.index);
-	$.Dom.id('index-movestocheckmate').innerHTML = 2;
 });
 
-$.Dom.addEvent(window, 'whitewins-valid', function(event){
-	
-});
+$.Dom.addEvent(window, 'whitewins-valid', function(event){});
 
 $.Dom.addEvent(window, 'whitewins-setsolved', function(event){
 	var info = whiteWins.getInfo();
@@ -175,17 +177,15 @@ $.Dom.addEvent(window, 'whitewins-setsolved', function(event){
 	$.Dom.addClass($.Dom.select('#index-sidebar-diagramslist li[data-key="'+event.detail.index+'"]')[0], 'solved');
 });
 
-$.Dom.addEvent(window, 'whitewins-next', function(event){
-	
-});
+$.Dom.addEvent(window, 'whitewins-next', function(event){});
 
 $.Dom.addEvent(window, 'whitewins-check', function(event){
 	if (event.detail.correct) {
 		whiteWins.setSolved(event.detail.index);
-		whiteWins.writeStatus('Correct answer', 'status-ok', 'status-ko');
+		whiteWins.writeStatus($.L10n.translate('correct-answer', '', 'Correct answer'), 'status-ok', 'status-ko');
 	}
 	else {
-		whiteWins.writeStatus('Wrong answer', 'status-ko', 'status-ok');
+		whiteWins.writeStatus($.L10n.translate('wrong-answer', '', 'Wrong answer'), 'status-ko', 'status-ok');
 		// Highlights
 		var suggestion = whiteWins.getSuggestion(event.detail.start+event.detail.end+(event.detail.promotion?event.detail.promotion:''));
 		if (suggestion) {
@@ -250,19 +250,19 @@ WhiteWins.prototype.getLastOrFirstUnsolved = function() {
 WhiteWins.prototype.applyAllowedRules = function () {
 	$.Dom.id('index-allowed-moves').innerHTML = '';
 	if (this._diagram.allowed.wlc) {
-		$.Dom.inject($.Dom.element('li', {}, '<span>White </span><code class="white">O-O-O</code>'), 'index-allowed-moves');
+		$.Dom.inject($.Dom.element('li', {}, '<span>'+$.L10n.translate('white', '', 'White')+' </span><code class="white">O-O-O</code>'), 'index-allowed-moves');
 	}
 	if (this._diagram.allowed.wsc) {
-		$.Dom.inject($.Dom.element('li', {}, '<span>White </span><code class="white">O-O</code>'), 'index-allowed-moves');
+		$.Dom.inject($.Dom.element('li', {}, '<span>'+$.L10n.translate('white', '', 'White')+' </span><code class="white">O-O</code>'), 'index-allowed-moves');
 	}
 	if (this._diagram.allowed.blc) {
-		$.Dom.inject($.Dom.element('li', {}, '<span>Black </span><code class="black">O-O-O</code>'), 'index-allowed-moves');
+		$.Dom.inject($.Dom.element('li', {}, '<span>'+$.L10n.translate('black', '', 'Black')+' </span><code class="black">O-O-O</code>'), 'index-allowed-moves');
 	}
 	if (this._diagram.allowed.bsc) {
-		$.Dom.inject($.Dom.element('li', {}, '<span>Black </span><code class="black">O-O</code>'), 'index-allowed-moves');
+		$.Dom.inject($.Dom.element('li', {}, '<span>'+$.L10n.translate('black', '', 'Black')+' </span><code class="black">O-O</code>'), 'index-allowed-moves');
 	}
 	if (this._diagram.allowed.enp) {
-		$.Dom.inject($.Dom.element('li', {}, '<span>En-passant </span><code class="enpassant">'+this.convert(this._diagram.allowed.enp)+'</code>'), 'index-allowed-moves');
+		$.Dom.inject($.Dom.element('li', {}, '<span>'+$.L10n.translate('en-passant', '', 'En-passant')+' </span><code class="enpassant">'+this.convert(this._diagram.allowed.enp)+'</code>'), 'index-allowed-moves');
 	}
 	return this;
 };

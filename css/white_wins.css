@@ -102,7 +102,7 @@ section[role="region"]:target > a.hide-sidebar {
 #index-2moves-subtitle {
 	transition: all 0.4s ease;
 }
-@media (min-width: 400px) {
+@media (min-width: 450px) {
 	#index-2moves-subtitle{
     font-size: 0;
     padding: 0;
@@ -111,7 +111,7 @@ section[role="region"]:target > a.hide-sidebar {
     background-color: white;
   }
 }
-@media (max-width: 400px) {
+@media (max-width: 450px) {
 	#index-2moves-inline{
 		font-size: 0;
 	}
@@ -125,6 +125,7 @@ section[role="region"]:target > a.hide-sidebar {
 #index-goto-info:hover {
   background-color: rgba(0,0,0,0.075);
 }
+
 
 
 

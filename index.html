@@ -5,11 +5,11 @@
 		<meta name=viewport content="width=device-width, initial-scale=1"/>
 		
 		<meta name="author" content="Francesco Michienzi (mastro elfo)"/>
-		<meta name="application-name" content="WhiteWins"/>
-		<meta name="description" content=""/>
-		<meta name="keywords" content="chess,checkmate,white,black,queen,king,rook,bishop,horse,pawn,board,diagram,play"/>
+		<meta name="application-name" content="WhiteWins" data-l10n="meta-application-name"/>
+		<meta name="description" content="Give checkmate to Black in 2 moves" data-l10n="meta-description"/>
+		<meta name="keywords" content="chess,checkmate,white,black,queen,king,rook,bishop,horse,pawn,board,diagram,play" data-l10n="meta-keywords"/>
 		
-		<title>White Wins</title>
+		<title data-l10n="html-title">White Wins</title>
 		
 		<link rel="stylesheet" href="css/resources/buttons.css"/>
 		<link rel="stylesheet" href="css/resources/drawer.css"/>
@@ -33,15 +33,14 @@
 		<link rel="shortcut icon" href="favicon.ico"/>
 	</head>
 	<body role="application">
-		<div id="tutorial-highlight"></div>
 		<section data-type="sidebar" class="vbox">
 			<header>
-				<h1>Choose a diagram <em>(<span id="index-sidebar-diagramsnumber">0</span>)</em></h1>
+				<h1><span data-l10n="choose-a-diagram">Choose a diagram</span>&nbsp;<em>(<span id="index-sidebar-diagramsnumber">0</span>)</em></h1>
 			</header>
 			<ul class="gaia-list">
 				<li>
 					<label id="index-sidebar-showsolvedlabel" class="pack-switch pointer">
-						Show solved
+						<span data-l10n="show-solved">Show solved</span>
 						<input type="checkbox" id="index-sidebar-showsolved"/>
 						<span></span>
 					</label>
@@ -62,12 +61,12 @@
 					<button id="index-goto-rules" data-goto="rules" class="pointer icon icon-options"></button>
 				</menu>
 				
-				<h1><span>White wins</span><span id="index-2moves-inline">&nbsp;in 2 moves</span></h1>
-				<h2 id="index-2moves-subtitle">in&nbsp;<span id="index-movestocheckmate">2</span>&nbsp;moves</h2>
+				<h1><span data-l10n="white-wins">White wins</span>&nbsp;<span id="index-2moves-inline" data-l10n="in-2-moves">in 2 moves</span></h1>
+				<h2 id="index-2moves-subtitle" data-l10n="in-2-moves">in 2moves</h2>
 			</header>
 			<section role="status" id="status" class="hidden">
 				<p></p>
-				<p id="index-nextdiagram">next</p>
+				<p id="index-nextdiagram" data-l10n="next">next</p>
 			</section>
 			<section class="fit scroll">
 				<ul id="index-piecepromotion" class="hidden">
@@ -207,57 +206,79 @@
 			<header>
 				<button title="Back" data-goback=""><span class="icon icon-back">back</span></button>
 				
-				<h1>Rules and info</h1>
+				<h1 data-l10n="rules-and-info">Rules and info</h1>
 			</header>
 			
 			<section class="fit scroll gaia-list sticky">
 				<article>
-					<header>How to play</header>
-					
-					<p>The following is a list of pieces:</p>
+					<header data-l10n="how-to-play">How to play</header>
+					<div data-l10n="how-to-play-html">
+						<p>The aim of the game is to give checkmate to Black in 2 moves.</p>
+						<p>The solution of each diagram is to find the first of these 2 moves, that is a move which, for any response of the Black, the White can always give checkmate.</p>
+						<p>When you've chosen the move select the piece with a click and then select, always with a single click, the house of your intended move. Below you will see the result.</p>
+						<p>If the answer is incorrect you may see a hint of a possible move for the Black (highlighted in red) that avoids checkmate.</p>
+						<p>If the answer is correct click on "Next" to solve another diagram.</p>
+						<p>The list of diagrams is in the side panel on the left: from here you can choose another diagram to solve.</p>
+					</div>
+				</article>
+				
+				<article>
+					<header data-l10n="pieces">Pieces</header>
+					<p data-l10n="pieces-html">The following is a list of pieces as they appear on your device:</p>
 					<table id="pieces-table">
 						<tbody>
 							<tr>
-								<td>King</td>
+								<td data-l10n="king">King</td>
 								<td>♔</td>
 								<td>♚</td>
-							</tr>
-							<tr>
-								<td>Queen</td>
+								<td data-l10n="queen">Queen</td>
 								<td>♕</td>
 								<td>♛</td>
 							</tr>
 							<tr>
-								<td>Bishop</td>
-								<td>♗</td>
-								<td>♝</td>
+								<td data-l10n="queen">Queen</td>
+								<td>♕</td>
+								<td>♛</td>
 							</tr>
 							<tr>
-								<td>Horse</td>
+								<td data-l10n="bishop">Bishop</td>
+								<td>♗</td>
+								<td>♝</td>
+								<td data-l10n="horse">Horse</td>
 								<td>♘</td>
 								<td>♞</td>
 							</tr>
 							<tr>
-								<td>Rook</td>
-								<td>♖</td>
-								<td>♜</td>
+								<td data-l10n="horse">Horse</td>
+								<td>♘</td>
+								<td>♞</td>
 							</tr>
 							<tr>
-								<td>Pawn</td>
+								<td data-l10n="rook">Rook</td>
+								<td>♖</td>
+								<td>♜</td>
+								<td data-l10n="pawn">Pawn</td>
+								<td>♙</td>
+								<td>♟</td>
+							</tr>
+							<tr>
+								<td data-l10n="pawn">Pawn</td>
 								<td>♙</td>
 								<td>♟</td>
 							</tr>
 						</tbody>
 					</table>
 				</article>
+				
 				<article>
-					<header>Bugs and issues</header>
-					<p>Please, tell us if you find a bug: <a href="https://github.com/mastro-elfo/WhiteWins/issues" title="Bug and issues on github">Github bug and issues</a>.</p>
+					<header data-l10n="bugs-and-issues">Bugs and issues</header>
+					<p data-l10n="bugs-and-issues-html">Please, tell us if you find a bug: <a href="https://github.com/mastro-elfo/WhiteWins/issues" title="Bug and issues on github" target="_blank" class="pointer" data-l10n="bugs-and-issues-link">Github bug and issues</a>.</p>
 				</article>
+				
 				<article>
-					<header>Reset data</header>
+					<header data-l10n="reset-data">Reset data</header>
 					<p>
-						<button type="button" id="rules-resetalldata" class="danger pointer">Resed all data</button>
+						<button type="button" id="rules-resetalldata" class="danger pointer" data-l10n="reset-data-button">Resed all data</button>
 					</p>
 				</article>
 			</section>
@@ -267,15 +288,15 @@
 			<header>
 				<button title="Back" data-goback=""><span class="icon icon-back">back</span></button>
 				
-				<h1>Diagram info</h1>
+				<h1 data-l10n="diagram-info">Diagram info</h1>
 			</header>
 			<section class="fit scroll gaia-list">
 				<article>
-					<header>General info</header>
+					<header data-l10n="general-info">General info</header>
 					<ul>
-						<li>Author:&nbsp;<span id="info-author"></span></li>
-						<li>Reference:&nbsp;<span id="info-reference"></span></li>
-						<li>Comment:&nbsp;<span id="info-comment"></span></li>
+						<li><span data-l10n="author">Author</span>:&nbsp;<span id="info-author"></span></li>
+						<li><span data-l10n="reference">Reference</span>:&nbsp;<span id="info-reference"></span></li>
+						<li><span data-l10n="comment">Comment</span>:&nbsp;<span id="info-comment"></span></li>
 					</ul>
 				</article>
 			</section>
