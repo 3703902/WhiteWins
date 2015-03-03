@@ -136,7 +136,7 @@ WhiteWins.prototype.check = function(start, end, promotion) {
 };
 
 WhiteWins.prototype.getSuggestion = function (key) {
-	return this._diagram.suggestions[key]? this._diagram.suggestions[key][Math.floor(Math.random(this._diagram.suggestions[key].length))] : null;
+	return this._diagram.suggestions[key]? this._diagram.suggestions[key][Math.floor(Math.random() * this._diagram.suggestions[key].length)] : null;
 }
 
 WhiteWins.prototype.each = function(callback){

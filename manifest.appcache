@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# v0.0.26
+# v0.0.29
 
 CACHE:
 
@@ -25,18 +25,35 @@ css/resources/status.css
 css/resources/switches.css
 
 # Gaia images
-css/resources/headers/images/back.png
-css/resources/headers/images/back@1.5x.png
-css/resources/headers/images/back@2.25x.png
-css/resources/headers/images/back@2x.png
-css/resources/headers/images/menu.png
-css/resources/headers/images/menu@1.5x.png
-css/resources/headers/images/menu@2.25x.png
-css/resources/headers/images/menu@2x.png
-css/resources/headers/images/options.png
-css/resources/headers/images/options@1.5x.png
-css/resources/headers/images/options@2.25x.png
-css/resources/headers/images/options@2x.png
+css/resources/drawer/images/ui/header.png
+css/resources/drawer/images/ui/shadow_rtl@2x.png
+css/resources/drawer/images/ui/shadow_header@1.5x.png
+css/resources/drawer/images/ui/shadow@1.5x.png
+css/resources/drawer/images/ui/shadow_rtl@1.5x.png
+css/resources/drawer/images/ui/shadow_header.png
+css/resources/drawer/images/ui/shadow_rtl.png
+css/resources/drawer/images/ui/shadow_header@2x.png
+css/resources/drawer/images/ui/shadow.png
+css/resources/drawer/images/ui/separator.png
+css/resources/drawer/images/ui/header/header.png
+css/resources/drawer/images/ui/header/shadow@1.5x.png
+css/resources/drawer/images/ui/header/shadow.png
+css/resources/drawer/images/ui/header/shadow@2x.png
+css/resources/drawer/images/ui/pattern.png
+css/resources/drawer/images/ui/pattern_subheader.png
+css/resources/drawer/images/ui/shadow@2x.png
+css/resources/headers/images/icons/back.png
+css/resources/headers/images/icons/back@1.5x.png
+css/resources/headers/images/icons/back@2.25x.png
+css/resources/headers/images/icons/back@2x.png
+css/resources/headers/images/icons/menu.png
+css/resources/headers/images/icons/menu@1.5x.png
+css/resources/headers/images/icons/menu@2.25x.png
+css/resources/headers/images/icons/menu@2x.png
+css/resources/headers/images/icons/options.png
+css/resources/headers/images/icons/options@1.5x.png
+css/resources/headers/images/icons/options@2.25x.png
+css/resources/headers/images/icons/options@2x.png
 css/resources/status/images/ui/pattern.png
 css/resources/switches/images/switch.background.png
 css/resources/switches/images/switch.background@1.5x.png
@@ -48,11 +65,12 @@ css/resources/switches/images/switch.background_rtl.png
 css/resources/switches/images/switch.background_rtl@1.5x.png
 
 # JS
-js/white_wins.js
+js/dollar/dollar.nc.js
 js/l10n.js
 js/main.js
 js/Page.js
-js/dollar/dollar.nc.js
+js/white_wins.js
+js/white_wins.valid.js
 
 # Other
 favicon.ico

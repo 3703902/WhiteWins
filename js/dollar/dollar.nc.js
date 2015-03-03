@@ -224,9 +224,9 @@ $.L10n = {
 	sniff: function(){
 		return navigator.language || navigator.userLanguage;
 	},
-	translate: function(string, language) {
+	translate: function(string, language, defaultValue) {
 		language = language ? language : this._language;
-		return  this._strings[language] ? (this._strings[language][string] || null) : null;
+		return  this._strings[language] ? (this._strings[language][string] || defaultValue) : defaultValue;
 	},
 	translateAll: function() {
 		var self = this;
