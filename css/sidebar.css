@@ -21,3 +21,12 @@ section[data-type="sidebar"] > nav > ul:not([data-showsolved="true"]) > li.solve
 	transition: all ease 0.25s;
 }
 
+#index-sidebar-showsolvedlabel {
+	color: white;
+}
+#index-sidebar-showsolvedlabel:active {
+	background: #00ABCC;
+}
+[data-ready="true"] #index-sidebar-showsolvedlabel {
+	transition: background 0.25s ease;
+}
