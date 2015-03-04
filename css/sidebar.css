@@ -1,8 +1,10 @@
-section[data-type="sidebar"] > nav > ul {
-	padding-bottom: 110px
+section[data-type="sidebar"] > nav > h2 {
+	position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
-section[data-type="sidebar"] > nav > ul > li > label {
+section[data-type="sidebar"] > nav > ul > li {
 	cursor: pointer;
 }
 
@@ -10,27 +12,39 @@ section[data-type="sidebar"] > nav > ul > li.solved {
 	color: rgba(255, 255, 255, 0.5);
 }
 
-section[data-type="sidebar"] > nav > ul:not([data-showsolved="true"]) > li.solved {
+#index-sidebar-diagramslist {
+	padding-bottom: 60px;
+}
+
+#index-sidebar-diagramslist:not([data-showsolved="true"]) > li.solved {
   font-size: 0;
   padding: 0;
   height: 0;
   min-height: 0;
 }
-section[data-type="sidebar"] > nav > ul:not([data-showsolved="true"]) > li.solved:after {
-	border: none;
-}
 
-[data-ready="true"] section[data-type="sidebar"] > nav > ul > li.solved {
-	transition: all ease 0.25s;
+#index-sidebar-diagramslist:not([data-showsolved="true"]) > li.solved:after {
+	border: none;
 }
 
 #index-sidebar-showsolvedlabel {
 	color: white;
+  margin: 0;
 }
 #index-sidebar-showsolvedlabel:active {
 	background: #00ABCC;
 }
+
+#index-sidebar-showsolvedlabel {}
+
+[data-ready="true"] section[data-type="sidebar"] > nav > ul > li {
+	transition: all ease 0.25s;
+}
+
 [data-ready="true"] #index-sidebar-showsolvedlabel {
 	transition: background 0.25s ease;
 }
+
+
+
 

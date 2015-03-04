@@ -155,7 +155,9 @@ $.Dom.addEvent(window, 'load', function(){
 	});
 	
 	$.Dom.addEvent(window, 'resize', function(){
-		$.Dom.style('board', 'font-size', Math.max(1, (Math.min(window.innerHeight -50, window.innerWidth) /100 -1)) +'rem');
+		var fontSize = Math.max(1, (Math.min(window.innerHeight -50, window.innerWidth) /100 -0.5));
+		$.Dom.style('board', 'font-size', fontSize +'rem');
+		$.Dom.style('index-allowed-moves', 'font-size', fontSize +'rem');
 	});
 	$.Dom.fireEvent(window, 'resize');
 });

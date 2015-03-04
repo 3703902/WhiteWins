@@ -105,20 +105,25 @@
 #index-allowed-moves {
 	position: absolute;
   top: 50%;
-  left: 1em;
-  margin-top: -10em;
+  left: 50%;
+  margin-top: -4em;
+  margin-left: -8em;
 }
 [data-ready="true"] #index-allowed-moves {
 	transition: font-size 0.25s ease;
 }
 #index-allowed-moves li {
 	padding: 0.2em 0.5em;
+  font-size: 35%;
 }
 #index-allowed-moves li:not(:last-child) {
 	border-bottom: 1px solid #F97C17;
 }
 
 @media (max-width: 800px) {
+  #index-allowed-moves {
+    margin-left: -7em
+  }
   #index-allowed-moves span {
     display: none
   }
@@ -144,8 +149,9 @@
 }
 @media (max-width: 700px) {
   #index-allowed-moves {
-  	top: auto;
-    bottom: 1em;
+  	width: 8em;
+  	margin-top: 5.2em;
+  	margin-left: -4em
   }
   #index-allowed-moves#index-allowed-moves li {
     float: left;
@@ -220,6 +226,10 @@
 [data-ready="true"] #index-piecepromotion li {
 	transition: text-shadow 0.25s ease;
 }
+
+
+
+
 
 
 
