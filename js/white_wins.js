@@ -29,14 +29,38 @@ var WhiteWins = function(diagrams, solved) {
 		'♟':'bp'		// Black pawn
 	};
 	
+	this._columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+	
 	this._fireEvent = function (name, data) {
 		$.Dom.fireEvent(window, 'whitewins-'+name, {
 			'detail': data
 		});
 	};
 	
+	/**
+	 * List of all diagrams
+	 */
 	this._diagrams = diagrams;
+	/**
+	 * List of solved diagrams: [id] => true|false
+	 */
 	this._solved = solved;
+	/**
+	 * Index of the diagram actually loaded
+	 */
+	this._diagramIndex;
+	/**
+	 * Actually loaded diagram
+	 */
+	this._diagram;
+	/**
+	 * "Digital" version of the actually loaded diagram
+	 */
+	this._digital;
+	/**
+	 * If the actual diagram was solved this time
+	 */
+	this._diagramSolved;
 	
 	this._fireEvent('initialized');
 };
@@ -93,6 +117,7 @@ WhiteWins.prototype.load = function(index){
 	this._diagramIndex = index;
 	this._diagram = this._diagrams[index];
 	this._digital = {};
+	this._diagramSolved = false;
 	var self = this;
 	$.Each(this._diagram.position, function(cell){
 		self._digital[cell[0]+cell[1]] = {
@@ -153,6 +178,7 @@ WhiteWins.prototype.allowed = function (){
 
 WhiteWins.prototype.setSolved = function(index) {
 	this._solved[index] = true;
+	this._diagramSolved = true;
 	this._fireEvent('setsolved', {
 		'index': index
 	});
@@ -160,7 +186,7 @@ WhiteWins.prototype.setSolved = function(index) {
 };
 
 WhiteWins.prototype.convert = function(coord){
-	return ['a','b','c','d','e','f','g','h'][parseInt(coord[0])] + (parseInt(coord[1]) +1);
+	return this._columns[parseInt(coord[0])] + (parseInt(coord[1]) +1);
 };
 
 WhiteWins.prototype.getInfo = function(){

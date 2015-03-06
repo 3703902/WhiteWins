@@ -2,6 +2,10 @@ section[data-type="sidebar"] > nav > h2 {
 	position: sticky;
   top: 0;
   z-index: 1;
+  padding-right: 3rem;
+}
+section[data-type="sidebar"] > nav label span {
+	cursor: pointer;
 }
 
 section[data-type="sidebar"] > nav > ul > li {
@@ -27,6 +31,10 @@ section[data-type="sidebar"] > nav > ul > li.solved {
 	border: none;
 }
 
+#index-sidebar-diagramslist:not([data-showsolved="true"]) > li.last:after {
+	border: none;
+}
+
 #index-sidebar-showsolvedlabel {
 	color: white;
   margin: 0;
@@ -35,8 +43,6 @@ section[data-type="sidebar"] > nav > ul > li.solved {
 	background: #00ABCC;
 }
 
-#index-sidebar-showsolvedlabel {}
-
 [data-ready="true"] section[data-type="sidebar"] > nav > ul > li {
 	transition: all ease 0.25s;
 }
@@ -44,7 +50,5 @@ section[data-type="sidebar"] > nav > ul > li.solved {
 [data-ready="true"] #index-sidebar-showsolvedlabel {
 	transition: background 0.25s ease;
 }
-
-
 
 
