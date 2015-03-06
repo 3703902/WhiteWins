@@ -51,7 +51,7 @@ body[data-ready="true"] section[role="status"] {
 }
 
 body {
-	font-family: sans-serif;
+	font-family: 'Fira Sans', MozTT, arial, sans-serif;
   user-select: none;
   -moz-user-select: none;
 	-webkit-user-select: none;
@@ -115,6 +115,7 @@ section[role="region"]:target > a.hide-sidebar {
 #index-goto-info:hover {
   background-color: rgba(0,0,0,0.075);
 }
+
 
 
 

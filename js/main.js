@@ -45,6 +45,17 @@ $.Dom.addEvent(window, 'load', function(){
 				}), 'index-sidebar-diagramslist');
 			});
 			
+			var lis = $.Dom.select('#index-sidebar-diagramslist li');
+			var last = null;
+			$.Each(lis, function(li) {
+				if (!$.Dom.hasClass(li, 'solved')) {
+					last = li;
+				}
+			});
+			if(last) {
+				$.Dom.addClass(last, 'last');
+			}
+			
 			$.Dom.id('index-sidebar-diagramsnumber').innerHTML = info.diagramsNumber;
 		}
 	});
@@ -54,7 +65,7 @@ $.Dom.addEvent(window, 'load', function(){
 		$.Each($.Dom.select('#board .cell'), function(cell){
 			$.Dom.addEvent(cell, 'click', function(event){
 				if (!start) {
-					whiteWins.removeHighlights();
+					whiteWins.removeHighlights().writeStatus('', '', ['status-ok', 'status-ko']);
 					if (event.target.innerHTML == '') {
 						return;
 					}
@@ -93,12 +104,12 @@ $.Dom.addEvent(window, 'load', function(){
 		});
 		$.Dom.addEvent(window, 'whitewins-load', function(event){
 			start = null;
-			whiteWins.removeHighlights();
+			whiteWins.removeHighlights().writeStatus('', '', ['status-ok', 'status-ko']);
 		});
 		$.Dom.addEvent('index', 'click', function(event){
 			if (event.target.id == 'index') {
 				start = null;
-				whiteWins.removeHighlights();
+				whiteWins.removeHighlights().writeStatus('', '', ['status-ok', 'status-ko']);
 			}
 		});
 	})();
@@ -122,6 +133,7 @@ $.Dom.addEvent(window, 'load', function(){
 	$.Dom.addEvent('status', 'click', function(event){
 		if($.Dom.hasClass('status', 'status-ko')) {
 			$.Dom.addClass('status', 'hidden');
+			whiteWins.removeHighlights();
 		}
 	});
 	
@@ -177,6 +189,17 @@ $.Dom.addEvent(window, 'whitewins-setsolved', function(event){
 	var info = whiteWins.getInfo();
 	$.Storage.set('solved', info.solved);
 	$.Dom.addClass($.Dom.select('#index-sidebar-diagramslist li[data-key="'+event.detail.index+'"]')[0], 'solved');
+	
+	var lis = $.Dom.select('#index-sidebar-diagramslist li');
+	var last = null;
+	$.Each(lis, function(li) {
+		if (!$.Dom.hasClass(li, 'solved')) {
+			last = li;
+		}
+	});
+	if(last) {
+		$.Dom.addClass(last, 'last');
+	}
 });
 
 $.Dom.addEvent(window, 'whitewins-next', function(event){});
@@ -274,6 +297,7 @@ WhiteWins.prototype.highlightCell = function (cell, classes) {
 	// 	highlight, player, opponent, start, end
 	$.Dom.addClass(cell, 'highlight');
 	$.Dom.addClass(cell, classes);
+	return this;
 };
 
 WhiteWins.prototype.removeHighlight = function (cell) {
@@ -282,10 +306,12 @@ WhiteWins.prototype.removeHighlight = function (cell) {
 	$.Dom.removeClass(cell, 'opponent');
 	$.Dom.removeClass(cell, 'start');
 	$.Dom.removeClass(cell, 'end');
+	return this;
 };
 WhiteWins.prototype.removeHighlights = function(){
 	var self = this;
 	$.Each($.Dom.select('#board .highlight'), function(cell){
 		self.removeHighlight(cell);
 	});
+	return this;
 };
