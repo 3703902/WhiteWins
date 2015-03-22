@@ -1,7 +1,61 @@
-/*
+
 // German
-$.L10n._strings.de = {};
-*/
+$.L10n._strings.de = {
+	'meta-application-name': {
+		'content': 'WeißGewinnt'
+	},
+	'meta-description': {
+		'content': 'Geben Sie Matt auf schwarz in 2 bewegt'
+	},
+	'meta-keywords': {
+		'content': 'Schach, Schachmatt, weiß, schwarz, Dame, König, Turm, Läufer, Pferd, Schachfigur, Pappe, Diagramm, spielen'
+	},
+	'html-title': 'Weiß gewinnt',
+	'choose-a-diagram': 'Wählen Sie ein Diagramm',
+	'show-solved': 'Show solved',
+	'white-wins': 'Weiß gewinnt',
+	'in-2-moves': 'in 2 bewegt',
+	'rules-and-info': 'Regeln und info',
+	'how-to-play': 'Wie man spielt',
+	'how-to-play-html':
+		'<p>Das Ziel des Spiels ist es, Schachmatt, um Schwarz in 2 bewegt sich zu geben.</p>'+
+		'<p>Die Lösung von jedem Diagramm ist, um die erste dieser 2 Bewegungen zu finden, das ist eine Bewegung, die für jede Antwort des Schwarzen kann das Weiß immer geben Schachmatt.</p>'+
+		'<p>Wenn Sie gewählt haben, der Umzug wählen Sie das Stück mit einem Klick und wählen Sie dann, immer mit einem einzigen Mausklick, das Haus Ihrer beabsichtigten Bewegung. Weiter unten finden Sie das Ergebnis zu sehen.</p>'+
+		'<p>Wenn die Antwort falsch ist möglicherweise ein Hinweis auf eine mögliche Bewegung der Schwarzen (rot markiert), die Schachmatt vermeidet sehen.</p>'+
+		'<p>Wenn die Antwort richtig ist, klicken Sie auf "Weiter" zu lösen weiteres Diagramm.</p>'+
+		'<p>Die Liste der Diagramme ist in der Seitenwand auf der linken Seite: Von hier aus können Sie wählen, ein anderes Diagramm zu lösen.</p>',
+	'pieces': 'Schachfigur',
+	'pieces-html': 'Im Folgenden ist eine Liste der Schachfigur, wie sie auf dem Gerät angezeigt werden:',
+	'king': 'König',
+	'queen': 'Dame',
+	'rook': 'Turm',
+	'bishop': 'Läufer',
+	'horse': 'Springer',
+	'pawn': 'Bauer',
+	'bugs-and-issues': 'Bugs und Probleme',
+	'bugs-and-issues-html': 'Bitte sagen Sie uns, wenn Sie einen Fehler finden: ',
+	'bugs-and-issues-link': {
+		'html': 'Github Bugs und Probleme',
+		'title': 'Bug und Probleme auf Github'
+	},
+	'reset-data': 'Daten zurücksetzen',
+	'reset-data-button': 'Zurücksetzen Sie alle Daten',
+	'diagram-info': 'Diagramm Info',
+	'general-info': 'Allgemeine Info',
+	'author': 'Autor',
+	'reference': 'Erwähnung',
+    'comment': 'Kommentar',
+	'diagram-number': 'Diagramm nummer',
+	'next': 'Weiter',
+	'diagram': 'Diagramm',
+	'confirm-reset': 'Wollen Sie wirklich alle Diagramme auf ungelöste zurücksetzen?',
+	'correct-answer': 'Richtige Antwort',
+	'wrong-answer': 'Falsche Antwort',
+	'white': 'Weiß',
+	'black': 'Schwartz',
+	'en-passant': 'En-passant'
+};
+
 
 // English
 $.L10n._strings.en = {
@@ -49,6 +103,7 @@ $.L10n._strings.en = {
 	'author': 'Author',
 	'reference': 'Reference',
     'comment': 'Comment',
+	'diagram-number': 'Diagram number',
 	'next': 'Next',
 	'diagram': 'Diagram',
 	'confirm-reset': 'Do you really want to reset all diagrams to unsolved?',
@@ -113,6 +168,7 @@ $.L10n._strings.it = {
 	'author': 'Autore',
 	'reference': 'Riferimento',
     'comment': 'Commento',
+	'diagram-number': 'Diagramma numero',
 	'next': 'Successivo',
 	'diagram': 'Diagramma',
 	'confirm-reset': 'Vuoi davvero reimpostare tutti i diagrammi come non risolti?',

@@ -66,42 +66,17 @@ var WhiteWins = function(diagrams, solved) {
 };
 
 WhiteWins.prototype.next = function() {
-	var l = 0;
-	var index = (this._diagramIndex || 0);
-	
-	// Search the first unsolved diagram
-	while (l < this._solved.length) {
-		index = index +1;
-		// Turnaround
-		if (index >= this._diagrams.length) {
-			index = 0;
+	var index = this._diagramIndex ? this._diagramIndex +1 : 0,
+		j;
+	for (var i=0; i<this._diagrams.length; i++) {
+		j = (i + index) % this._diagrams.length;
+		if (!this._solved[j]) {
+			index = j;
+			break;
 		}
-		if (!this._solved[index]) {
-			// This is unsolved
-			this._fireEvent('next', {
-				'index': index
-			});
-			return index;
-		}
-		
-		l++;
 	}
 	
-	// No unsolved diagram found
-	if (!this._solved[0]) {
-		// Diagram 0 is unsolved
-		// This can happen the first time one open the app
-		this._fireEvent('next', {
-			'index': 0
-		});
-		return 0;
-	}
-	
-	// Return the following even if it's solved
-	index = (this._diagramIndex || 0) +1;
-	if (index >= this._diagrams.length) {
-		index = 0;
-	}
+	// alert(j+' '+index)
 	
 	this._fireEvent('next', {
 		'index': index

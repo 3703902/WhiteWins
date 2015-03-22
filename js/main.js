@@ -154,6 +154,7 @@ $.Dom.addEvent(window, 'load', function(){
 		$.Dom.id('info-author').innerHTML = info.author;
 		$.Dom.id('info-reference').innerHTML = info.reference;
 		$.Dom.id('info-comment').innerHTML = info.comment;
+		$.Dom.id('info-diagramnumber').innerHTML = info.diagramIndex;
 	});
 	
 	$.Dom.addEvent('rules-resetalldata', 'click', function(){
