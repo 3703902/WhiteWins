@@ -8,7 +8,7 @@ $.L10n._strings.de = {
 		'content': 'Geben Sie Matt auf schwarz in 2 bewegt'
 	},
 	'meta-keywords': {
-		'content': 'Schach, Schachmatt, weiß, schwarz, Dame, König, Turm, Läufer, Pferd, Schachfigur, Pappe, Diagramm, spielen'
+		'content': 'Schach, Schachmatt, weiß, schwarz, Dame, König, Turm, Läufer, Springer, Bauer, Schachfigur, Pappe, Diagramm, spielen'
 	},
 	'html-title': 'Weiß gewinnt',
 	'choose-a-diagram': 'Wählen Sie ein Diagramm',
@@ -114,10 +114,64 @@ $.L10n._strings.en = {
 	'en-passant': 'En-passant'
 };
 
-/*
 // Spanish
-$.L10n._strings.es = {};
+$.L10n._strings.es = {
+	'meta-application-name': {
+		'content': 'BlancoVince'
+	},
+	'meta-description': {
+		'content': 'Dé jaque mate al Negro en 2 movimientos'
+	},
+	'meta-keywords': {
+		'content': 'ajedrez, jaque mate,blanco,negro,dama,rey,alfile,caballo,torre,peone,tablero,diagrama,jugar'
+	},
+	'html-title': 'El Blanco vince',
+	'choose-a-diagram': 'Elige un diagrama',
+	'show-solved': 'Mostrar resuelto',
+	'white-wins': 'El Blanco vince',
+	'in-2-moves': 'en 2 movimientos',
+	'rules-and-info': 'Reglas y info',
+	'how-to-play': 'Cómo jugar',
+	'how-to-play-html':
+		'<p>El objetivo del juego es dar jaque mate al Negro en 2 movimientos.</p>'+
+		'<p>La solución de cada diagrama es encontrar la primera de estas 2 se mueve, es un movimiento que, por cualquier respuesta del Negro, el Blanco siempre puede dar jaque mate.</p>'+
+		'<p>Cuando hayas elegido el movimiento seleccionar la pieza con un clic y luego seleccione, siempre con un solo clic, la casa de su movimiento previsto. A continuación podrás ver el resultado.</p>'+
+		'<p>Si la respuesta es incorrecta es posible que vea una pista de un posible fichaje por el Negro (resaltado en rojo) que evite el jaque mate.</p>'+
+		'<p>Si la respuesta es correcta, haga clic en "Siguiente" para resolver otro diagrama.</p>'+
+		'<p>La lista de los diagramas se encuentra en el panel lateral de la izquierda: desde aquí se puede elegir otro diagrama para resolver.</p>',
+	'pieces': 'Las Piezas',
+	'pieces-html': 'La siguiente es una lista de las piezas tal y como aparecen en el dispositivo:',
+	'king': 'Rey',
+	'queen': 'Dama',
+	'rook': 'Torre',
+	'bishop': 'Alfile',
+	'horse': 'Caballo',
+	'pawn': 'Peone',
+	'bugs-and-issues': 'Problemas y errores',
+	'bugs-and-issues-html': 'Por favor, díganos si usted encuentra un error: ',
+	'bugs-and-issues-link': {
+		'html': 'Github problemas y errores',
+		'title': 'Problemas y errores en github'
+	},
+	'reset-data': 'Restablecer datos',
+	'reset-data-button': 'Reajustar todos los datos',
+	'diagram-info': 'Diagrama info',
+	'general-info': 'Información general',
+	'author': 'Autor',
+	'reference': 'Referencia',
+    'comment': 'Commentario',
+	'diagram-number': 'Diagrama número',
+	'next': 'Siguiente',
+	'diagram': 'Diagrama',
+	'confirm-reset': '¿Realmente desea restablecer todos los diagramas para resolver?',
+	'correct-answer': 'Respuesta correcta',
+	'wrong-answer': 'Respuesta equivocada',
+	'white': 'Blanco',
+	'black': 'Negro',
+	'en-passant': 'En-passant'
+};
 
+/*
 // French
 $.L10n._strings.fr = {};
 */
