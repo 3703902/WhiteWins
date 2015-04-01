@@ -171,10 +171,62 @@ $.L10n._strings.es = {
 	'en-passant': 'En-passant'
 };
 
-/*
 // French
-$.L10n._strings.fr = {};
-*/
+$.L10n._strings.fr = {
+	'meta-application-name': {
+		'content': 'BlancGagne'
+	},
+	'meta-description': {
+		'content': 'Donnez mat Black en 2 coups'
+	},
+	'meta-keywords': {
+		'content': 'échecs,échec et mat,blanc,noir,dame,roi,tour,fou,cavalier,pion,conseil,diagramme,schéma,jouer'
+	},
+	'html-title': 'Blanc gagne',
+	'choose-a-diagram': 'Choisissez un schéma',
+	'show-solved': 'Afficher résolu',
+	'white-wins': 'Blanc gagne',
+	'in-2-moves': 'en 2 coups',
+	'rules-and-info': 'Règles et informations',
+	'how-to-play': 'Comment jouer',
+	'how-to-play-html':
+		'<p>Le but du jeu est de donner à Black mat en 2 coups.</p>'+
+		'<p>La solution de chaque diagramme est de trouver le premier de ces deux mouvements, ce est un mouvement qui, pour toute réponse du noir, le blanc peut toujours donner mat.</p>'+
+		'<p>Lorsque vous avez choisi le déménagement sélectionner la pièce avec un clic puis sélectionnez, toujours avec un seul clic, la maison de votre déménagement prévu. Ci-dessous vous verrez le résultat.</p>'+
+		'<p>Si la réponse est incorrecte, vous pouvez voir un soupçon d\'un déménagement possible pour le noir (en rouge) qui évite échec et mat.</p>'+
+		'<p>Si la réponse est correcte, cliquez sur "Suivant" pour résoudre un autre schéma.</p>'+
+		'<p>La liste des diagrammes est dans le panneau latéral à gauche: à partir de là, vous pouvez choisir un autre diagramme à résoudre.</p>',
+	'pieces': 'Pièce',
+	'pieces-html': 'Ce qui suit est une liste de morceaux tels qu\'ils apparaissent sur votre appareil:',
+	'king': 'Roi',
+	'queen': 'Dame',
+	'rook': 'Tour',
+	'bishop': 'Fou',
+	'horse': 'Cavalier',
+	'pawn': 'Pion',
+	'bugs-and-issues': 'Bugs et problèmes',
+	'bugs-and-issues-html': 'Se il vous plaît, dites-nous si vous trouvez un bug: ',
+	'bugs-and-issues-link': {
+		'html': 'Github bug et les questions',
+		'title': 'Bug et les questions sur github'
+	},
+	'reset-data': 'Réinitialiser les données',
+	'reset-data-button': 'Réinitialiser toutes les données',
+	'diagram-info': 'Schéma d\'info',
+	'general-info': 'Info générale',
+	'author': 'Auteur',
+	'reference': 'Référence',
+    'comment': 'Remarque',
+	'diagram-number': 'Numéro diagramme',
+	'next': 'Suivant',
+	'diagram': 'Diagramme',
+	'confirm-reset': 'Voulez-vous vraiment réinitialiser tous les diagrammes à résoudre?',
+	'correct-answer': 'Bonne réponse',
+	'wrong-answer': 'Mauvaise réponse',
+	'white': 'Blanc',
+	'black': 'Noir',
+	'en-passant': 'En-passant'
+};
 
 // Italian
 $.L10n._strings.it = {
