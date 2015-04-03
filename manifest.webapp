@@ -20,12 +20,12 @@
 	"type": "web",
 	"locales": {
 		"en": {
-				"name": "WhiteWins",
+				"name": "White Wins",
 				"description": ""
 		},
 		"it": {
 				"name": "Bianco Vince",
-				"description": "<b>Zompa Cavallo!</b> è un gioco di carte italiano tipico del periodo natalizio.<br/> Gioca a Zompa Cavallo con amici e parenti."
+				"description": ""
 		}
 	}
 }
