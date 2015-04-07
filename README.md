@@ -18,7 +18,7 @@ The list of diagrams is in the side panel on the left: from here you can choose 
 Screenshots
 ===========
 
-![Main screen](img/ss1.png "The main screen of the app with the chessboard")
-![Left sidebar](img/ss2.png "The left sidebar to choose a diagram to solve")
-![Diagram info](img/ss3.png "Some information about each diagram")
-![Rules and info](img/ss4.png "Rules and info page, how to play and to contribute")
+![Main screen](img/ss1.jpg "The main screen of the app with the chessboard")
+![Left sidebar](img/ss2.jpg "The left sidebar to choose a diagram to solve")
+![Diagram info](img/ss3.jpg "Some information about each diagram")
+![Rules and info](img/ss4.jpg "Rules and info page, how to play and to contribute")
