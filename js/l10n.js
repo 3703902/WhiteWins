@@ -12,7 +12,7 @@ $.L10n._strings.de = {
 	},
 	'html-title': 'Weiß gewinnt',
 	'choose-a-diagram': 'Wählen Sie ein Diagramm',
-	'show-solved': 'Show solved',
+	'show-solved': 'Gelöst anzeigen',
 	'white-wins': 'Weiß gewinnt',
 	'in-2-moves': 'in 2 bewegt',
 	'rules-and-info': 'Regeln und info',
@@ -285,7 +285,59 @@ $.L10n._strings.it = {
 	'en-passant': 'En-passant'
 };
 
-/*
 // Portuguese
-$.L10n._strings.pt = {};
-*/
+$.L10n._strings.pt = {
+	'meta-application-name': {
+		'content': 'BrancoGanha'
+	},
+	'meta-description': {
+		'content': 'Dar xeque-mate to Black em 2 movimentos'
+	},
+	'meta-keywords': {
+		'content': 'xadrez,xeque-mate,branco,preto,negro,dama,rainha,rei,torre,bispo,cavalo,peão,tabuleiro,diagrama,jogar'
+	},
+	'html-title': 'Branco Ganha',
+	'choose-a-diagram': 'Escolha um diagrama',
+	'show-solved': 'Mostrar resolvido',
+	'white-wins': 'Branco Ganha',
+	'in-2-moves': 'em 2 movimentos',
+	'rules-and-info': 'Regras e Informação',
+	'how-to-play': 'Como jogar',
+	'how-to-play-html':
+		'<p>O objetivo do jogo é dar xeque-mate to Black em dois movimentos.</p>'+
+		'<p>A solução de cada diagrama é encontrar o primeiro desses dois movimentos, que é um movimento que, por qualquer resposta do preto, o branco pode sempre dar xeque-mate.</p>'+
+		'<p>Quando você tiver escolhido o movimento selecionar a peça com um clique e, em seguida, selecionar, sempre com um único clique, a casa de seu movimento pretendido. Abaixo, você vai ver o resultado.</p>'+
+		'<p>Se a resposta for incorreta você pode ver uma sugestão de uma possível transferência para o Black (destacado em vermelho) que evita xeque-mate.</p>'+
+		'<p>Se a resposta for correta clique em "Next" para resolver outro diagrama.</p>'+
+		'<p>A lista de diagramas está no painel lateral da esquerda: a partir daqui você pode escolher um outro diagrama de resolver.</p>',
+	'pieces': 'Peças',
+	'pieces-html': 'O que se segue é uma lista de peças como eles aparecem no seu dispositivo:',
+	'king': 'Rei',
+	'queen': 'Dama',
+	'rook': 'Torre',
+	'bishop': 'Bispo',
+	'horse': 'Cavalo',
+	'pawn': 'Peão',
+	'bugs-and-issues': 'Bugs e problemas',
+	'bugs-and-issues-html': 'Por favor, diga-nos se você encontrar um bug:',
+	'bugs-and-issues-link': {
+		'html': 'Github bug e questões',
+		'title': 'Bug e questões sobre github'
+	},
+	'reset-data': 'Repor dados',
+	'reset-data-button': 'Redefinir todos os dados',
+	'diagram-info': 'Informação Diagram',
+	'general-info': 'Informação geral',
+	'author': 'Autor',
+	'reference': 'referência',
+    'comment': 'Comente',
+	'diagram-number': 'Número Diagram',
+	'next': 'Seguir',
+	'diagram': 'Diagrama',
+	'confirm-reset': 'Você realmente quer para repor todos os diagramas para resolver?',
+	'correct-answer': 'Resposta correta',
+	'wrong-answer': 'Resposta errada',
+	'white': 'Branco',
+	'black': 'Preto',
+	'en-passant': 'En-passant'
+};

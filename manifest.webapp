@@ -19,13 +19,29 @@
 	"default_locale": "en",
 	"type": "web",
 	"locales": {
+		"de": {
+				"name": "Weiß gewinnt",
+				"description": "Geben Sie Matt auf schwarz in 2 bewegt"
+		},
 		"en": {
 				"name": "White Wins",
-				"description": ""
+				"description": "Give checkmate to Black in 2 moves"
+		},
+		"es": {
+				"name": "Blanco vince",
+				"description": "Dé jaque mate al Negro en 2 movimientos"
+		},
+		"fr": {
+				"name": "Blanc gagne",
+				"description": "Donnez mat Black en 2 coups"
 		},
 		"it": {
 				"name": "Bianco Vince",
-				"description": ""
+				"description": "Dai scacco matto al Nero in 2 mosse"
+		},
+		"pt": {
+				"name": "Branco Ganha",
+				"description": "Dar xeque-mate to Black em 2 movimentos"
 		}
 	}
 }
